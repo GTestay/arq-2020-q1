@@ -1,5 +1,5 @@
 const request = require('supertest');
-const assert = require('assert')
+const assert = require('assert');
 
 const App = require('../src/app');
 const Usuario = require('../src/modelos/usuario');
