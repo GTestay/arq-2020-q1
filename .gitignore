@@ -100,3 +100,12 @@ coverage.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+
+# Preact
+
+node_modules
+/build
+/*.log
+*.lock
+
+package-lock.json
