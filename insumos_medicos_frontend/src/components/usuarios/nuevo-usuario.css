@@ -1,5 +1,17 @@
-.home {
+.titulo {
     padding: 56px 20px;
     min-height: 100%;
     width: 100%;
+}
+
+.formulario {
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto auto;
+    grid-row-gap: 10px;
+
+    width: 25%;
+}
+
+.boton {
+    height: 56px !important;
 }
