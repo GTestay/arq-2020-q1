@@ -1,35 +1,39 @@
-<h2>Registro de Usuario</h2>
-<div>
+<div class="titulo">
+  <h2>REGISTRO DE USUARIOS</h2>
+  <div class="botones">
+    <button class="boton secondary" (click)="volverAtras()">Atras</button>
+    <button class="boton" (click)="guardarUsuario()">Guardar</button>
+  </div>
+</div>
+
+<div class="form">
   <label>
-    Nombre:
-    <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre"/>
+    Nombre
+    <input [(ngModel)]="nuevoUsuario.nombre" placeholder="ej.: David Correa"/>
   </label>
 
   <label>
-    Email:
-    <input [(ngModel)]="nuevoUsuario.email" placeholder="Email"/>
+    Email
+    <input [(ngModel)]="nuevoUsuario.email" placeholder="ej.: david@correa.com"/>
   </label>
 
   <label>
-    Telefono:
-    <input [(ngModel)]="nuevoUsuario.telefono" placeholder="Telefono"/>
+    Telefono
+    <input [(ngModel)]="nuevoUsuario.telefono" placeholder="ej.: 1500000000"/>
   </label>
 
   <label>
-    Entidad:
-    <input [(ngModel)]="nuevoUsuario.entidad" placeholder="Entidad"/>
+    Entidad
+    <input [(ngModel)]="nuevoUsuario.entidad" placeholder="ej.: Hospital Evita Pueblo"/>
   </label>
 
   <label>
-    Cargo:
-    <input [(ngModel)]="nuevoUsuario.cargo" placeholder="Cargo"/>
+    Cargo
+    <input [(ngModel)]="nuevoUsuario.cargo" placeholder="ej.: Cirujano"/>
   </label>
 
   <label>
-    Localidad:
-    <input [(ngModel)]="nuevoUsuario.localidad" placeholder="Localidad"/>
+    Localidad
+    <input [(ngModel)]="nuevoUsuario.localidad" placeholder="ej.: Berazategui"/>
   </label>
-
-  <button (click)="volverAtras()">Atras</button>
-  <button (click)="guardarUsuario()">Guardar</button>
 </div>

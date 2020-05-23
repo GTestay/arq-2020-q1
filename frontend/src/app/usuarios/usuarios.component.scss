@@ -1,0 +1,15 @@
+@import '../../variables.scss';
+@import '../../components.scss';
+
+table {
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid $primary-color;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 1em 0.5em;
+}

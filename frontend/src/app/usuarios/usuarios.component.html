@@ -1,9 +1,49 @@
-<h2>Usuarios</h2>
-<button (click)="registrarUsuario()">Registrar</button>
+<div class="titulo">
+  <h2>USUARIOS</h2>
+  <button class="boton" (click)="registrarUsuario()">Registrar</button>
+</div>
+
 <div *ngIf="usuarios">
-  <ul class="usuarios">
-    <li *ngFor="let usuario of usuarios">
-      {{usuario.nombre}} - {{usuario.email}} - {{usuario.telefono}} - {{usuario.entidad}} - {{usuario.cargo}} - {{usuario.localidad}}
-    </li>
-  </ul>
+  <table>
+    <tr>
+      <th>
+        Nombre
+      </th>
+      <th>
+        Email
+      </th>
+      <th>
+        Telefono
+      </th>
+      <th>
+        Entidad
+      </th>
+      <th>
+        Cargo
+      </th>
+      <th>
+        Localidad
+      </th>
+    </tr>
+    <tr *ngFor="let usuario of usuarios">
+      <td>
+        {{usuario.nombre}}
+      </td>
+      <td>
+        {{usuario.email}}
+      </td>
+      <td>
+        {{usuario.telefono}}
+      </td>
+      <td>
+        {{usuario.entidad}}
+      </td>
+      <td>
+        {{usuario.cargo}}
+      </td>
+      <td>
+        {{usuario.localidad}}
+      </td>
+    </tr>
+  </table>
 </div>
