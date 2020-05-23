@@ -9,13 +9,13 @@ app.use(express.json());
 app.use(cors())
 
 app.route('/usuarios')
-  .get((req, res) => {
-    const usuarios = repositorioUsuarios.obtenerTodos();
+  .get(async (req, res) => {
+    const usuarios = await repositorioUsuarios.obtenerTodos();
 
     res.send(usuarios);
   })
-  .post((req, res) => {
-    repositorioUsuarios.agregar(new Usuario(req.body));
+  .post(async (req, res) => {
+    await repositorioUsuarios.agregar(new Usuario(req.body));
 
     res.status(201);
     res.send('{}');
