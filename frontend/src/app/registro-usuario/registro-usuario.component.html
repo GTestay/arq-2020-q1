@@ -1,0 +1,35 @@
+<h2>Registro de Usuario</h2>
+<div>
+  <label>
+    Nombre:
+    <input [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre"/>
+  </label>
+
+  <label>
+    Email:
+    <input [(ngModel)]="nuevoUsuario.email" placeholder="Email"/>
+  </label>
+
+  <label>
+    Telefono:
+    <input [(ngModel)]="nuevoUsuario.telefono" placeholder="Telefono"/>
+  </label>
+
+  <label>
+    Entidad:
+    <input [(ngModel)]="nuevoUsuario.entidad" placeholder="Entidad"/>
+  </label>
+
+  <label>
+    Cargo:
+    <input [(ngModel)]="nuevoUsuario.cargo" placeholder="Cargo"/>
+  </label>
+
+  <label>
+    Localidad:
+    <input [(ngModel)]="nuevoUsuario.localidad" placeholder="Localidad"/>
+  </label>
+
+  <button (click)="volverAtras()">Atras</button>
+  <button (click)="guardarUsuario()">Guardar</button>
+</div>

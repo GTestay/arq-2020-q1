@@ -1,0 +1,9 @@
+<h2>Usuarios</h2>
+<button (click)="registrarUsuario()">Registrar</button>
+<div *ngIf="usuarios">
+  <ul class="usuarios">
+    <li *ngFor="let usuario of usuarios">
+      {{usuario.nombre}} - {{usuario.email}} - {{usuario.telefono}} - {{usuario.entidad}} - {{usuario.cargo}} - {{usuario.localidad}}
+    </li>
+  </ul>
+</div>
