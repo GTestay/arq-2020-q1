@@ -4,7 +4,6 @@ from usuarios.models import Usuario
 
 
 class UsuarioSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
     nombre = serializers.CharField(max_length=200)
     email = serializers.CharField(max_length=200)
     telefono = serializers.CharField(max_length=200)

@@ -11,10 +11,10 @@ def index(request):
 
 @api_view(['POST'])
 def nuevo_usuario(request):
-    serializer = UsuarioSerializer(data=request.data)
+    nuevo_usuario = UsuarioSerializer(data=request.data)
 
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    if nuevo_usuario.is_valid():
+        nuevo_usuario.save()
+        return Response(nuevo_usuario.data, status=status.HTTP_201_CREATED)
 
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(nuevo_usuario.errors, status=status.HTTP_400_BAD_REQUEST)
