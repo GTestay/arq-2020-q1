@@ -2,38 +2,40 @@
   <h2>REGISTRO DE USUARIOS</h2>
   <div class="botones">
     <button class="boton secondary" (click)="volverAtras()">Atras</button>
-    <button class="boton" (click)="guardarUsuario()">Guardar</button>
   </div>
 </div>
 
-<div class="form">
-  <label>
-    Nombre
-    <input [(ngModel)]="nuevoUsuario.nombre" placeholder="ej.: David Correa"/>
-  </label>
-
-  <label>
-    Email
-    <input [(ngModel)]="nuevoUsuario.email" placeholder="ej.: david@correa.com"/>
-  </label>
-
-  <label>
-    Telefono
-    <input [(ngModel)]="nuevoUsuario.telefono" placeholder="ej.: 1500000000"/>
-  </label>
-
-  <label>
-    Entidad
-    <input [(ngModel)]="nuevoUsuario.entidad" placeholder="ej.: Hospital Evita Pueblo"/>
-  </label>
-
-  <label>
-    Cargo
-    <input [(ngModel)]="nuevoUsuario.cargo" placeholder="ej.: Cirujano"/>
-  </label>
-
-  <label>
-    Localidad
-    <input [(ngModel)]="nuevoUsuario.localidad" placeholder="ej.: Berazategui"/>
-  </label>
-</div>
+<section>
+  <div class="form">
+    <label>
+      Nombre
+      <input required [(ngModel)]="nuevoUsuario.nombre" placeholder="ej.: David Correa"/>
+    </label>
+  
+    <label>
+      Email
+      <input required [(ngModel)]="nuevoUsuario.email" placeholder="ej.: david@correa.com"/>
+    </label>
+  
+    <label>
+      Telefono
+      <input required [(ngModel)]="nuevoUsuario.telefono" placeholder="ej.: 1500000000"/>
+    </label>
+  
+    <label>
+      Entidad
+      <input required [(ngModel)]="nuevoUsuario.entidad" placeholder="ej.: Hospital Evita Pueblo"/>
+    </label>
+  
+    <label>
+      Cargo
+      <input required [(ngModel)]="nuevoUsuario.cargo" placeholder="ej.: Cirujano"/>
+    </label>
+  
+    <label>
+      Localidad
+      <input required [(ngModel)]="nuevoUsuario.localidad" placeholder="ej.: Berazategui"/>
+    </label>
+  </div>
+  <button class="boton primary" (click)="guardarUsuario()">Guardar</button>
+</section>
