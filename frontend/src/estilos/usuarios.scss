@@ -1,0 +1,55 @@
+@import './variables.scss';
+@import './componentes.scss';
+
+table {
+  border-radius: $border-radius;
+
+  width: 100%;
+  box-shadow: $box-shadow;
+  background-color: transparent;
+
+  tr:first-child {
+    th:first-child {
+      border-top-left-radius: $border-radius;
+    }
+
+    th:last-child {
+      border-top-right-radius: $border-radius;
+    }
+  }
+
+  tr:last-child {
+    td:first-child {
+      border-bottom-left-radius: $border-radius;
+    }
+
+    td:last-child {
+      border-bottom-right-radius: $border-radius;
+    }
+  }
+
+  tr + tr {
+    td {
+      border-top: 1px solid rgba($primary-color, .2);
+    }
+  }
+
+  th {
+    background-color: #222831;
+    color: $accent-color;
+    text-align: left;
+  }
+
+  th, td {
+    padding: 1.5em 0.5em;
+
+    &:first-of-type {
+      padding-left: 2em;
+    }
+  }
+}
+
+table, th, td {
+  border-collapse: separate;
+  border-spacing: 0;
+}

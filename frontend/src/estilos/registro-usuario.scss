@@ -1,0 +1,41 @@
+@import './variables.scss';
+@import './componentes.scss';
+
+.botones {
+  display: flex;
+}
+
+section {
+  padding: 2em;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+  display: flex;
+  flex-direction: column;
+
+  .form {
+    display: flex;
+
+    label {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      font-size: 1.2rem;
+      margin-bottom: 1em;
+
+      &:not(:last-child) {
+        margin-right: 1em;
+      }
+
+      input {
+        height: 2em;
+        border: 0.5px solid $primary-color;
+        border-radius: $border-radius;
+        padding: 0.5em 0.7em;
+      }
+    }
+  }
+
+  .boton {
+    align-self: flex-end;
+  }
+}
