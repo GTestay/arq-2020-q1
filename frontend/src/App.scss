@@ -1,38 +1,37 @@
-.App {
-  text-align: center;
+@import 'estilos/variables.scss';
+
+app-root {
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  color: $primary-color;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2, h3 {
+  color: $secondary-color;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h4 {
+  color: #cccccc;
+}
+
+body {
+  margin: 0 2em;
+  background-color: $background-color;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+body, input[type="text"], button {
+  color: $secondary-color;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
