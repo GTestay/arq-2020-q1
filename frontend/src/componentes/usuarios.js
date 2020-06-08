@@ -1,12 +1,13 @@
 import React from 'react';
+import axios from 'axios';
 
 import '../estilos/componentes.scss'
 import '../estilos/usuarios.scss'
-import axios from 'axios';
 
 class Usuarios extends React.Component {
   constructor(props){
     super(props);
+
     this.state = {usuarios: []};
   }
 
@@ -19,7 +20,7 @@ class Usuarios extends React.Component {
   }
 
   mostrarUsuarios() {
-    return (this.state.usuarios.map((usuario) => {
+    return this.state.usuarios.map((usuario) => {
       return (
         <tr key={usuario.email}>
           <td>
@@ -42,14 +43,12 @@ class Usuarios extends React.Component {
           </td>
         </tr>
       )
-    }
-    ))
+    })
   }
 
   render() {
     return (
       <div>
-
         <div className="titulo">
           <h2>USUARIOS</h2>
           <button className="boton primary" onClick={this.pasarARegistrar}> Registrar </button>
@@ -59,28 +58,16 @@ class Usuarios extends React.Component {
           <table>
             <thead>
               <tr>
-                <th>
-                  Nombre
-                              </th>
-                <th>
-                  Email
-                              </th>
-                <th>
-                  Telefono
-                              </th>
-                <th>
-                  Entidad
-                              </th>
-                <th>
-                  Cargo
-                              </th>
-                <th>
-                  Localidad
-                              </th>
+                <th> Nombre </th>
+                <th> Email </th>
+                <th> Telefono </th>
+                <th> Entidad </th>
+                <th> Cargo </th>
+                <th> Localidad </th>
               </tr>
             </thead>
             <tbody>
-              {this.mostrarUsuarios()}
+              { this.mostrarUsuarios() }
             </tbody>
           </table>
         </div>
