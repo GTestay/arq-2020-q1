@@ -4,6 +4,7 @@ const assert = require('assert');
 const App = require('../src/app');
 const Usuario = require('../src/modelos/usuario');
 const RepositorioUsuarios = require('../src/repositorios/repositorioUsuarios');
+const RepositorioSolicitudes = require('../src/repositorios/repositorioDeSolicitudes');
 
 describe('/usuarios', () => {
   beforeEach(() => {
@@ -55,6 +56,51 @@ describe('/usuarios', () => {
         .expect(201, {})
         .end(function() {
           assert.equal(RepositorioUsuarios.cantidad(), 1);
+          done();
+        })
+    });
+  });
+});
+
+describe('/solicitud', () => {
+  beforeEach(() => {
+    RepositorioSolicitudes.limpiar();
+  });
+
+  describe('GET', () => {
+    beforeEach(() => {
+      RepositorioSolicitudes.agregar(
+        new Solicitud({
+          area: 'RRHH',
+          insumo: 'Insumo',
+        })
+      )
+    });
+
+    it('obtiene todos las solicitudes', (done) => {
+      request(App)
+        .get('/solicitudes')
+        .expect('Content-Type', /json/)
+        .expect(200, [{
+          area: 'RRHH',
+          insumo: 'Insumo',
+          estado: 'PENDIENTE',
+        }], done)
+    });
+  });
+
+  describe('POST', () => {
+    it('crea un nueva solicitud', (done) => {
+      request(App)
+        .post('/solicitudes')
+        .send({
+          area: 'RRHH',
+          insumo: 'Insumo',
+        })
+        .expect('Content-Type', /json/)
+        .expect(201, {})
+        .end(function() {
+          assert.equal(RepositorioSolicitudes.cantidad(), 1);
           done();
         })
     });
