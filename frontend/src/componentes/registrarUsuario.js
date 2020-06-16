@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import '../estilos/componentes.scss'
 import '../estilos/registro-usuario.scss'
 
 class RegistarUsuario extends React.Component {
