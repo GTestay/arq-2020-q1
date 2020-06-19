@@ -30,6 +30,10 @@ class RepositorioUsuarios {
     return Usuario.find({});
   }
 
+  obtenerPorEmail(emailUsuario) {
+    return Usuario.find({ email: emailUsuario});
+  }
+
   cantidad() {
     return Usuario.count();
   }

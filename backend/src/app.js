@@ -39,4 +39,13 @@ app.route('/solicitudes')
     res.send('{}');
   });
 
+app.route('/usuarios/:email')
+  .get(async (req, res) => {
+    var email = req.param('email');
+
+    const usuario = await repositorioUsuarios.obtenerPorEmail(email);
+
+    res.send(usuario)
+  });
+
 module.exports = app;
