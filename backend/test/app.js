@@ -1,16 +1,19 @@
 const request = require('supertest');
 const assert = require('assert');
 
+const setup = require('./setup');
 const App = require('../src/app');
 const Usuario = require('../src/modelos/usuario');
+const Solicitud = require('../src/modelos/solicitud');
 const RepositorioUsuarios = require('../src/repositorios/repositorioUsuarios');
 const RepositorioSolicitudes = require('../src/repositorios/repositorioDeSolicitudes');
 
-describe('/usuarios', () => {
-  beforeEach(() => {
-    RepositorioUsuarios.limpiar();
-  });
+// TODO: Buscar como configurar UNA SOLA VEZ.
+before(async () => await setup.connectDatabase());
+afterEach(async () => await setup.clearDatabase());
+after(async () => await setup.closeDatabase());
 
+describe('/usuarios', () => {
   describe('GET', () => {
     beforeEach(() => {
       RepositorioUsuarios.agregar(
@@ -29,14 +32,19 @@ describe('/usuarios', () => {
       request(App)
         .get('/usuarios')
         .expect('Content-Type', /json/)
-        .expect(200, [{ 
-          nombre: 'Natalia Natalia',
-          email: 'natalia@unknown.com',
-          telefono: '1500000000',
-          entidad: 'Hospital de desconocidos',
-          cargo: 'Administrativo',
-          localidad: 'Varela'
-        }], done)
+        .expect(200, {})
+        .end((_, response) => {
+          const usuario = response.body[0];
+
+          assert.equal(usuario.nombre, 'Natalia Natalia');
+          assert.equal(usuario.email, 'natalia@unknown.com');
+          assert.equal(usuario.telefono, '1500000000');
+          assert.equal(usuario.entidad, 'Hospital de desconocidos');
+          assert.equal(usuario.cargo, 'Administrativo');
+          assert.equal(usuario.localidad, 'Varela');
+
+          done();
+        });
     });
   });
 
@@ -54,8 +62,9 @@ describe('/usuarios', () => {
          })
         .expect('Content-Type', /json/)
         .expect(201, {})
-        .end(function() {
-          assert.equal(RepositorioUsuarios.cantidad(), 1);
+        .end(async () => {
+          assert.equal(await RepositorioUsuarios.cantidad(), 1);
+
           done();
         })
     });
@@ -97,10 +106,6 @@ describe('usuarios/:email', () => {
   });
 });
 describe('/solicitud', () => {
-  beforeEach(() => {
-    RepositorioSolicitudes.limpiar();
-  });
-
   describe('GET', () => {
     beforeEach(() => {
       RepositorioSolicitudes.agregar(
@@ -115,11 +120,14 @@ describe('/solicitud', () => {
       request(App)
         .get('/solicitudes')
         .expect('Content-Type', /json/)
-        .expect(200, [{
-          area: 'RRHH',
-          insumo: 'Insumo',
-          estado: 'PENDIENTE',
-        }], done)
+        .end((_, response) => {
+          const solicitud = response.body[0];
+
+          assert.equal(solicitud.area, 'RRHH');
+          assert.equal(solicitud.insumo, 'Insumo');
+
+          done();
+        });
     });
   });
 
@@ -133,8 +141,9 @@ describe('/solicitud', () => {
         })
         .expect('Content-Type', /json/)
         .expect(201, {})
-        .end(function() {
-          assert.equal(RepositorioSolicitudes.cantidad(), 1);
+        .end(async () => {
+          assert.equal(await RepositorioSolicitudes.cantidad(), 1);
+
           done();
         })
     });

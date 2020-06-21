@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/dev', { useNewUrlParser: true, useUnifiedTopology: true });
+const mongoose = require('../../conf/db');
 
 const usuarioSchema = new mongoose.Schema({
   nombre: String,
@@ -34,12 +33,8 @@ class RepositorioUsuarios {
     return Usuario.findOne({ email: emailUsuario}).exec();
   }
 
-  cantidad() {
-    return Usuario.count();
-  }
-
-  limpiar() {
-    Usuario.deleteMany({});
+  async cantidad() {
+    return await Usuario.count();
   }
 }
 
