@@ -11,7 +11,9 @@ class Usuarios extends React.Component {
     this.state = {usuarios: []};
   }
 
-  pasarARegistrar = () => this.props.history.push('/registrar-usuario', {});
+  pasarASolicitudes = () => this.props.history.push('/solicitudes', {});
+
+  pasarARegistrar = () => this.props.history.push('/usuarios/registrar', {});
 
   componentDidMount() {
     axios.get('/usuarios').then(({ data }) => {
@@ -51,7 +53,10 @@ class Usuarios extends React.Component {
       <div>
         <div className="titulo">
           <h2>USUARIOS</h2>
-          <button className="boton primary" onClick={this.pasarARegistrar}> Registrar </button>
+          <div class="botones">
+            <button className="boton secondary" onClick={this.pasarASolicitudes}> Solicitudes </button>
+            <button className="boton primary" onClick={this.pasarARegistrar}> Registrar </button>
+          </div>
         </div>
 
         <div>

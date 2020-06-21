@@ -18,7 +18,7 @@ class RegistarUsuario extends React.Component {
         }
     }
 
-    pasarAUsuarios = () => this.props.history.push('/', {});
+    pasarAUsuarios = () => this.props.history.push('/usuarios', {});
 
     cambiarPropiedad = (propiedad, valor) => {
       this.setState({[propiedad]: valor})
