@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors')
+const logger = require('simple-node-logger').createSimpleLogger();
 
 const Usuario = require('./modelos/usuario');
 const repositorioUsuarios = require('./repositorios/repositorioUsuarios');
@@ -17,6 +18,7 @@ app.route('/usuarios')
     res.send(usuarios);
   })
   .post(async (req, res) => {
+    logger.info(`Creando usuario con: ${res.body}`)
     await repositorioUsuarios.agregar(new Usuario(req.body));
 
     res.status(201);
@@ -30,7 +32,8 @@ app.route('/solicitudes')
     res.send(solicitudes);
   })
   .post(async (req, res) => {
-    await repositorioSolicitud.agregar(new Solicitud(req.body));
+  logger.info(`Creando solicitud con: ${res.body}`)
+  await repositorioSolicitud.agregar(new Solicitud(req.body));
 
     res.status(201);
     res.send('{}');
