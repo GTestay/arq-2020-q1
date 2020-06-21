@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/dev', {useNewUrlParser: true, useUnifiedTopology: true});
+const mongoose = require('../../conf/db');
 
 const solicitudSchema = new mongoose.Schema({
   area: String,
@@ -21,12 +20,8 @@ class RepositorioSolicitudes {
     return solicitud.find({});
   }
 
-  cantidad() {
-    return solicitud.count();
-  }
-
-  limpiar() {
-    solicitud.deleteMany({});
+  async cantidad() {
+    return await solicitud.count();
   }
 }
 
