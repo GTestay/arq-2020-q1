@@ -30,8 +30,8 @@ class RepositorioUsuarios {
     return Usuario.find({});
   }
 
-  obtenerPorEmail(emailUsuario) {
-    return Usuario.find({ email: emailUsuario});
+  async obtenerPorEmail(emailUsuario) {
+    return Usuario.findOne({ email: emailUsuario}).exec();
   }
 
   cantidad() {

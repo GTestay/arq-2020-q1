@@ -19,8 +19,8 @@ class Login extends React.Component {
 
     ingresar = (e) => {
         e.preventDefault()
-        Backend.login(this.state.email).then(usuario => {
-            this.props.history.push('/usuarios', { usuario })
+        Backend.login(this.state.email).then(({ data }) => {
+            this.props.history.push('/usuarios', { usuario: data })
         }).catch(e => this.cambiarPropiedad('falloAlLoguear', e))
     }
 
@@ -41,7 +41,9 @@ class Login extends React.Component {
                                        'email', event.target.value)}/>
                         </label>
                     </div>
-                    <p>{this.state.falloAlLoguear ? 'Ups! ocurrió un error' : null}</p>
+                    <p>{this.state.falloAlLoguear
+                        ? 'Ups! ocurrió un error'
+                        : null}</p>
                     <button className="boton primary"> Ingresar</button>
                 </form>
             </div>
