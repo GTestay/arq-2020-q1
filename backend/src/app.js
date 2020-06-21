@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors')
-const logger = require('simple-node-logger').createSimpleLogger();
+const logger = require('simple-node-logger').createSimpleLogger('project.log');
 
 const Usuario = require('./modelos/usuario');
 const repositorioUsuarios = require('./repositorios/repositorioUsuarios');
