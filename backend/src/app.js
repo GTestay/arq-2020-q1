@@ -39,9 +39,9 @@ app.route('/solicitudes')
     res.send('{}');
   });
 
-app.route('/usuarios/:email')
-  .get(async (req, res) => {
-    var email = req.param('email');
+app.route('/login')
+  .post(async (req, res) => {
+    const email = req.body.email
 
     const usuario = await repositorioUsuarios.obtenerPorEmail(email);
 
