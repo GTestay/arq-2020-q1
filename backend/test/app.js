@@ -62,6 +62,40 @@ describe('/usuarios', () => {
   });
 });
 
+describe('usuarios/:email', () => {
+  beforeEach(() => {
+    RepositorioUsuarios.limpiar();
+  });
+
+  describe('GET', () => {
+    beforeEach(() => {
+      RepositorioUsuarios.agregar(
+        new Usuario({
+          nombre: 'Natalia Natalia',
+          email: 'natalia@unknown.com',
+          telefono: '1500000000',
+          entidad: 'Hospital de desconocidos',
+          cargo: 'Administrativo',
+          localidad: 'Varela'
+        })
+      )
+    });
+
+    it('obtiene al usuario con ese email', (done) => {
+      request(App)
+        .get('/usuarios/?email=natalia@unknown.com')
+        .expect('Content-Type', /json/)
+        .expect(200, { 
+          nombre: 'Natalia Natalia',
+          email: 'natalia@unknown.com',
+          telefono: '1500000000',
+          entidad: 'Hospital de desconocidos',
+          cargo: 'Administrativo',
+          localidad: 'Varela'
+        } , done)
+    });
+  });
+});
 describe('/solicitud', () => {
   beforeEach(() => {
     RepositorioSolicitudes.limpiar();
