@@ -52,7 +52,7 @@ describe('/usuarios', () => {
     it('crea un nuevo usuario', (done) => {
       request(App)
         .post('/usuarios')
-        .send({ 
+        .send({
           nombre: 'Natalia Natalia',
           email: 'natalia@unknown.com',
           telefono: '1500000000',
@@ -71,7 +71,7 @@ describe('/usuarios', () => {
   });
 });
 
-describe('usuarios/:email', () => {
+describe('login', () => {
   beforeEach(() => {
     RepositorioUsuarios.limpiar();
   });
@@ -94,7 +94,7 @@ describe('usuarios/:email', () => {
       request(App)
         .get('/usuarios/?email=natalia@unknown.com')
         .expect('Content-Type', /json/)
-        .expect(200, { 
+        .expect(200, {
           nombre: 'Natalia Natalia',
           email: 'natalia@unknown.com',
           telefono: '1500000000',
@@ -105,10 +105,11 @@ describe('usuarios/:email', () => {
     });
   });
 });
+
 describe('/solicitud', () => {
   describe('GET', () => {
     beforeEach(() => {
-      RepositorioSolicitudes.agregar(
+      RepositorioSolicitudes.nueva(
         new Solicitud({
           area: 'RRHH',
           insumo: 'Insumo',
@@ -146,6 +147,35 @@ describe('/solicitud', () => {
 
           done();
         })
+    });
+  });
+
+});
+
+describe('/solicitud/:id/cancelar', () => {
+  describe('PATCH', () => {
+    const solicitud = new Solicitud({area:'RRHH', insumo:'Barbijos'});
+
+    afterEach(() => {
+      RepositorioSolicitudes.limpiar();
+    });
+
+    beforeEach(()=>{
+      RepositorioSolicitudes.nueva(solicitud)
+    })
+
+    it('Se puede cancelar una solicitud, cuando pertenece al usuario que la solicita', () => {
+        const solicitudAModificar = RepositorioSolicitudes.obtenerTodos().
+            find(unaSolicitud => unaSolicitud.usuario === solicitud.usuario);
+
+        request(App).
+            patch(`/solicitudes/${solicitudAModificar.id}/cancelar`).
+            send();
+
+        const solicitudAModificar2 = RepositorioSolicitudes.obtenerTodos().
+            find(unaSolicitud => unaSolicitud.usuario === solicitud.usuario);
+
+      expect(solicitudAModificar2.estado).equals(Solicitud.ESTADOS.CANCELADA);
     });
   });
 });
