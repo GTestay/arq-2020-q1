@@ -51,6 +51,7 @@ app.route('/solicitudes/:id/cancelar').patch(async (req, res) => {
 });
 
 app.route('/login').post(async (req, res) => {
+    logger.info(`Logueando a: ${req.body.email}`)
     const email = req.body.email;
 
     const usuario = await repositorioUsuarios.obtenerPorEmail(email);

@@ -34,7 +34,7 @@ class RepositorioUsuarios {
   }
 
   async cantidad() {
-    return await Usuario.count();
+    return await Usuario.countDocuments();
   }
 }
 

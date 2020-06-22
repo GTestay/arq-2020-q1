@@ -14,8 +14,8 @@ class RepositorioSolicitudes {
   constructor() {
   }
 
-  nueva({email, area, insumo, estado}) {
-    solicitud.create({email, area, insumo, estado})
+  async nueva({ email, area, insumo, estado }) {
+    return await solicitud.create({ email, area, insumo, estado })
   }
 
   obtenerTodos() {
@@ -29,12 +29,8 @@ class RepositorioSolicitudes {
         { new: true }).exec();
   }
 
-  limpiar() {
-    solicitud.deleteMany({});
-  }
-
   async cantidad() {
-    return await solicitud.count();
+    return await solicitud.countDocuments();
   }
 
 }

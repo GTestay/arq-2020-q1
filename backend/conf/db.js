@@ -3,9 +3,9 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoMemoryServer = new MongoMemoryServer();
 const mongooseOpts = { useNewUrlParser: true, useUnifiedTopology: true };
 
-const setupTestDB = async () => {
+const setupTestDB = () => {
   mongoose.connectTestDatabase = async () => {
-    const uri = await mongoMemoryServer.getConnectionString();
+    const uri = await mongoMemoryServer.getUri();
     mongoose.connect(uri, mongooseOpts);
   };
 
