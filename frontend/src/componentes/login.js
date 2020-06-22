@@ -1,7 +1,7 @@
 import React from 'react'
-import Backend from '../api/backendApi'
 
-import '../estilos/login.scss'
+import Backend from '../api/backendApi';
+import styles from '../estilos/login.module.scss';
 
 class Login extends React.Component {
     constructor(props) {
@@ -26,13 +26,13 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="login">
-                <div className="titulo">
+            <div className={styles.login}>
+                <div className={styles.titulo}>
                     <h2>INSUMOS MEDICOS</h2>
                 </div>
 
-                <form className="form-login" onSubmit={this.ingresar}>
-                    <div className="form">
+                <form className={styles.form} onSubmit={this.ingresar}>
+                    <div className="input-group 1-col">
                         <label>
                             Ingrese su email:
                             <input required placeholder="ej.: gastonT@gmail.com"

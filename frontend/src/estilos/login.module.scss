@@ -1,9 +1,5 @@
 @import './variables.scss';
-
-#root {
-  margin: unset;
-  height: 100vh;
-}
+@import './componentes.scss';
 
 .login {
     flex-direction: column;
@@ -13,12 +9,8 @@
     align-items: center;
     display: flex;
     box-sizing: border-box;
-}
 
-.titulo {
-  width: 50%;
-}
-
-.form-login {
-  width: 50%;
+    .titulo, .form {
+      width: 30%;
+    }
 }
