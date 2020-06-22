@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import '../estilos/componentes.scss';
 import '../estilos/agregarSolicitud.scss';
