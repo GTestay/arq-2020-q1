@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import '../estilos/registro-usuario.scss'
+import '../estilos/componentes.scss';
 
 class RegistarUsuario extends React.Component {
     constructor(props) {
@@ -49,7 +49,7 @@ class RegistarUsuario extends React.Component {
           </div>
 
           <form>
-            <div className="form">
+            <div className="input-group col-6">
               <label> 
                 Nombre
                 <input required placeholder="ej.: David Correa" value={this.state.nombre} onChange={(event) => this.cambiarPropiedad('nombre', event.target.value)}/>

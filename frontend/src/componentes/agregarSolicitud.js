@@ -1,8 +1,7 @@
 import React from 'react';
 
-import '../estilos/componentes.scss';
-import '../estilos/agregarSolicitud.scss';
 import backendApi from '../api/backendApi';
+import '../estilos/componentes.scss';
 
 class AgregarSolicitud extends React.Component {
     constructor(props) {
@@ -39,7 +38,7 @@ class AgregarSolicitud extends React.Component {
           </div>
 
           <form>
-            <div className="form">
+            <div className="input-group col-2">
               <label> 
                 Insumo
                 <select value={this.state.insumo} onChange={(event) => this.cambiarPropiedad('insumo', event.target.value)}>

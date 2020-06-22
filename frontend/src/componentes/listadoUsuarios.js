@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import '../estilos/usuarios.scss'
+import '../estilos/componentes.scss';
 
-class Usuarios extends React.Component {
+class ListadoUsuarios extends React.Component {
   constructor(props){
     super(props);
 
@@ -52,7 +52,7 @@ class Usuarios extends React.Component {
       <div>
         <div className="titulo">
           <h2>USUARIOS</h2>
-          <div class="botones">
+          <div className="botones">
             <button className="boton secondary" onClick={this.pasarASolicitudes}> Solicitudes </button>
             <button className="boton primary" onClick={this.pasarARegistrar}> Registrar </button>
           </div>
@@ -80,4 +80,4 @@ class Usuarios extends React.Component {
   }
 }
 
-export default Usuarios;
+export default ListadoUsuarios;
