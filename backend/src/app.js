@@ -16,7 +16,7 @@ app.route('/usuarios').get(async (req, res) => {
 
     res.send(usuarios);
 }).post(async (req, res) => {
-    logger.info(`Creando usuario con: ${res.body}`);
+    logger.info(`Creando usuario con: ${req.body}`);
     await repositorioUsuarios.agregar(new Usuario(req.body));
 
     res.status(201);
@@ -28,7 +28,7 @@ app.route('/solicitudes').get(async (req, res) => {
 
     res.send(solicitudes);
 }).post(async (req, res) => {
-    logger.info(`Creando solicitud con: ${res.body}`);
+    logger.info(`Creando solicitud con: ${req.body}`);
 
     await repositorioSolicitud.nueva(new Solicitud(req.body));
 
