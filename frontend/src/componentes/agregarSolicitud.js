@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import '../estilos/componentes.scss';
 import '../estilos/agregarSolicitud.scss';
+import backendApi from '../api/backendApi';
 
 class AgregarSolicitud extends React.Component {
     constructor(props) {
@@ -10,7 +11,8 @@ class AgregarSolicitud extends React.Component {
 
         this.state = {
           area: 'Atención de pacientes',
-          insumo: 'Máscaras protectoras'
+          insumo: 'Máscaras protectoras',
+          email: 'pepito@gmail.com'
         }
     }
 
@@ -22,8 +24,7 @@ class AgregarSolicitud extends React.Component {
 
     guardarSolicitud = event => {
       event.preventDefault();
-
-      axios.post(`/solicitudes`, { area: this.state.area, insumo: this.state.insumo }).then(_ => {
+        backendApi.guardarSolicitud(this.state).then(_ => {
         this.pasarAListadoSolicitudes();
       }).catch(console.log)
     }

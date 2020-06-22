@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import '../estilos/componentes.scss'
 import '../estilos/usuarios.scss'
+import backendApi from '../api/backendApi';
 
 export default class ListadoSolicitudes extends React.Component {
   constructor(props) {
@@ -20,10 +21,13 @@ export default class ListadoSolicitudes extends React.Component {
     })
   }
 
-  mostrarSolicitud() {
+  mostrarSolicitudes() {
     return this.state.solicitudes.map((solicitud) => {
       return (
         <tr key={solicitud._id}>
+          <td>
+            {solicitud.email}
+          </td>
           <td>
             {solicitud.insumo}
           </td>
@@ -33,6 +37,12 @@ export default class ListadoSolicitudes extends React.Component {
           <td>
             {solicitud.estado}
           </td>
+            <td>
+                {solicitud.estado === 'CANCELADA' ? null :
+                    <button className="boton inverted"
+                    onClick={(e) => this.cancelar(e,
+                        solicitud)}>Cancelar</button>}
+            </td>
         </tr>
       )
     })
@@ -52,17 +62,32 @@ export default class ListadoSolicitudes extends React.Component {
           <table>
             <thead>
             <tr>
+              <th>Email solicitante</th>
               <th>Insumo</th>
               <th>Area</th>
               <th>Estado</th>
+              <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
-            {this.mostrarSolicitud()}
+            {this.mostrarSolicitudes()}
             </tbody>
           </table>
         </div>
       </div>
     );
   }
+    cancelar = (e, solicitud) => {
+        e.preventDefault();
+        backendApi.cancelarSolicitud(solicitud).then(this.actualizarSolicitud);
+    };
+
+    actualizarSolicitud = solicitudActualizada => {
+        this.setState({
+            solicitudes: this.state.solicitudes.map(
+                solicitud => solicitud._id === solicitudActualizada._id
+                    ? solicitudActualizada
+                    : solicitud),
+        });
+    };
 }

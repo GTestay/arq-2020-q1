@@ -30,13 +30,28 @@ app.route('/solicitudes').get(async (req, res) => {
 }).post(async (req, res) => {
     logger.info(`Creando solicitud con: ${res.body}`);
 
-    await repositorioSolicitud.agregar(new Solicitud(req.body));
+    await repositorioSolicitud.nueva(new Solicitud(req.body));
 
     res.status(201);
     res.send('{}');
 });
 
+app.route('/solicitudes/:id/cancelar').patch(async (req, res) => {
+    const id = req.params.id;
+    const email = req.body.email;
+    const solicitud = await repositorioSolicitud.cancelar({ id, email });
+    if(!!solicitud) {
+        logger.info(`Solicitud cancelada: ${solicitud}`);
+        res.send(solicitud);
+    }else{
+        logger.info(`No se pudo cancelar`);
+        res.status(404);
+        res.send('No se pudo cancelar');
+    }
+});
+
 app.route('/login').post(async (req, res) => {
+    logger.info(`Logueando a: ${req.body.email}`)
     const email = req.body.email;
 
     const usuario = await repositorioUsuarios.obtenerPorEmail(email);

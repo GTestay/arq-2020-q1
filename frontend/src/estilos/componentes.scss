@@ -62,4 +62,14 @@
       background-color: darken($secondary-color, 5);
     }
   }
+
+  &.inverted {
+    background-color: transparent;
+    padding: 0.5em 1em;
+    border: 2px solid $secondary-color;
+
+    &:hover {
+      background-color: lighten($secondary-color, 50);
+    }
+  }
 }

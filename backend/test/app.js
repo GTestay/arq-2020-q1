@@ -36,12 +36,12 @@ describe('/usuarios', () => {
         .end((_, response) => {
           const usuario = response.body[0];
 
-          assert.equal(usuario.nombre, 'Natalia Natalia');
-          assert.equal(usuario.email, 'natalia@unknown.com');
-          assert.equal(usuario.telefono, '1500000000');
-          assert.equal(usuario.entidad, 'Hospital de desconocidos');
-          assert.equal(usuario.cargo, 'Administrativo');
-          assert.equal(usuario.localidad, 'Varela');
+          assert.strictEqual(usuario.nombre, 'Natalia Natalia');
+          assert.strictEqual(usuario.email, 'natalia@unknown.com');
+          assert.strictEqual(usuario.telefono, '1500000000');
+          assert.strictEqual(usuario.entidad, 'Hospital de desconocidos');
+          assert.strictEqual(usuario.cargo, 'Administrativo');
+          assert.strictEqual(usuario.localidad, 'Varela');
 
           done();
         });
@@ -52,7 +52,7 @@ describe('/usuarios', () => {
     it('crea un nuevo usuario', (done) => {
       request(App)
         .post('/usuarios')
-        .send({ 
+        .send({
           nombre: 'Natalia Natalia',
           email: 'natalia@unknown.com',
           telefono: '1500000000',
@@ -63,7 +63,7 @@ describe('/usuarios', () => {
         .expect('Content-Type', /json/)
         .expect(201, {})
         .end(async () => {
-          assert.equal(await RepositorioUsuarios.cantidad(), 1);
+          assert.strictEqual(await RepositorioUsuarios.cantidad(), 1);
 
           done();
         })
@@ -71,44 +71,41 @@ describe('/usuarios', () => {
   });
 });
 
-describe('usuarios/:email', () => {
-  beforeEach(() => {
-    RepositorioUsuarios.limpiar();
-  });
+describe('login', () => {
 
-  describe('GET', () => {
+  describe('POST', () => {
+    const unUsuario = new Usuario({
+      nombre: 'Natalia Natalia',
+      email: 'natalia@unknown.com',
+      telefono: '42549877',
+      entidad: 'Hospital de desconocidos',
+      cargo: 'Administrativo',
+      localidad: 'Varela'
+    });
+
     beforeEach(() => {
-      RepositorioUsuarios.agregar(
-        new Usuario({
-          nombre: 'Natalia Natalia',
-          email: 'natalia@unknown.com',
-          telefono: '1500000000',
-          entidad: 'Hospital de desconocidos',
-          cargo: 'Administrativo',
-          localidad: 'Varela'
-        })
-      )
+      RepositorioUsuarios.agregar(unUsuario)
     });
 
     it('obtiene al usuario con ese email', (done) => {
       request(App)
-        .get('/usuarios/?email=natalia@unknown.com')
+        .post('/login')
+        .send({email: unUsuario.email})
         .expect('Content-Type', /json/)
-        .expect(200, { 
-          nombre: 'Natalia Natalia',
-          email: 'natalia@unknown.com',
-          telefono: '1500000000',
-          entidad: 'Hospital de desconocidos',
-          cargo: 'Administrativo',
-          localidad: 'Varela'
-        } , done)
+        .expect(200)
+        .end((_, response) =>{
+          const usuarioLogueado = new Usuario(response.body);
+          assert.notStrictEqual(usuarioLogueado, unUsuario)
+          done();
+      })
     });
   });
 });
+
 describe('/solicitud', () => {
   describe('GET', () => {
     beforeEach(() => {
-      RepositorioSolicitudes.agregar(
+      RepositorioSolicitudes.nueva(
         new Solicitud({
           area: 'RRHH',
           insumo: 'Insumo',
@@ -123,8 +120,8 @@ describe('/solicitud', () => {
         .end((_, response) => {
           const solicitud = response.body[0];
 
-          assert.equal(solicitud.area, 'RRHH');
-          assert.equal(solicitud.insumo, 'Insumo');
+          assert.strictEqual(solicitud.area, 'RRHH');
+          assert.strictEqual(solicitud.insumo, 'Insumo');
 
           done();
         });
@@ -142,10 +139,32 @@ describe('/solicitud', () => {
         .expect('Content-Type', /json/)
         .expect(201, {})
         .end(async () => {
-          assert.equal(await RepositorioSolicitudes.cantidad(), 1);
+          assert.strictEqual(await RepositorioSolicitudes.cantidad(), 1);
 
           done();
         })
+    });
+  });
+
+});
+
+describe('/solicitud/:id/cancelar', () => {
+  describe('PATCH', () => {
+    const email = 'pepe@gmail.com';
+    const solicitud = new Solicitud({email ,area:'RRHH', insumo:'Barbijos'});
+    let cascas = { }
+    beforeEach(async ()=>{
+      cascas = await RepositorioSolicitudes.nueva(solicitud)
+    })
+
+    it('Se puede cancelar una solicitud, cuando pertenece al usuario que la solicita', (done) => {
+        request(App).
+            patch(`/solicitudes/${cascas._id}/cancelar`).
+            send({ email })
+            .end( (_, {body})=> {
+              assert.strictEqual(body.estado, Solicitud.ESTADOS.CANCELADA);
+              done();
+            });
     });
   });
 });
