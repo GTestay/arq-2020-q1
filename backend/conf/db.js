@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoMemoryServer = new MongoMemoryServer();
-const mongooseOpts = { useNewUrlParser: true, useUnifiedTopology: true };
+const mongooseOpts = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
 
 const setupTestDB = () => {
   mongoose.connectTestDatabase = async () => {
