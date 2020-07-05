@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 
 import '../estilos/componentes.scss';
+import Backend from '../api/backendApi';
 
 class ListadoUsuarios extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-
-    this.state = {usuarios: []};
+    this.state = { usuarios: [] };
   }
 
   pasarASolicitudes = () => this.props.history.push('/solicitudes', {});
@@ -15,9 +15,9 @@ class ListadoUsuarios extends React.Component {
   pasarARegistrar = () => this.props.history.push('/usuarios/registrar', {});
 
   componentDidMount() {
-    axios.get('/usuarios').then(({ data }) => {
-      this.setState({ usuarios: data })
-    })
+    Backend.usuarios().then(({ data }) => {
+      this.setState({ usuarios: data });
+    });
   }
 
   mostrarUsuarios() {
@@ -43,8 +43,8 @@ class ListadoUsuarios extends React.Component {
             {usuario.localidad}
           </td>
         </tr>
-      )
-    })
+      );
+    });
   }
 
   render() {
@@ -53,25 +53,29 @@ class ListadoUsuarios extends React.Component {
         <div className="titulo">
           <h2>USUARIOS</h2>
           <div className="botones">
-            <button className="boton secondary" onClick={this.pasarASolicitudes}> Solicitudes </button>
-            <button className="boton primary" onClick={this.pasarARegistrar}> Registrar </button>
+            <button className="boton secondary"
+                    onClick={this.pasarASolicitudes}> Solicitudes
+            </button>
+            <button className="boton primary"
+                    onClick={this.pasarARegistrar}> Registrar
+            </button>
           </div>
         </div>
 
         <div>
           <table>
             <thead>
-              <tr>
-                <th> Nombre </th>
-                <th> Email </th>
-                <th> Telefono </th>
-                <th> Entidad </th>
-                <th> Cargo </th>
-                <th> Localidad </th>
-              </tr>
+            <tr>
+              <th> Nombre</th>
+              <th> Email</th>
+              <th> Telefono</th>
+              <th> Entidad</th>
+              <th> Cargo</th>
+              <th> Localidad</th>
+            </tr>
             </thead>
             <tbody>
-              { this.mostrarUsuarios() }
+            {this.mostrarUsuarios()}
             </tbody>
           </table>
         </div>

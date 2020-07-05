@@ -3,11 +3,12 @@ import axios from 'axios';
 
 import backendApi from '../api/backendApi';
 import '../estilos/componentes.scss';
+import Backend from '../api/backendApi';
 
 export default class ListadoSolicitudes extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {solicitudes: []};
+    this.state = { solicitudes: [] };
   }
 
   pasarAUsuarios = () => this.props.history.push('/usuarios', {});
@@ -15,9 +16,9 @@ export default class ListadoSolicitudes extends React.Component {
   pasarAAgregar = () => this.props.history.push('/solicitudes/agregar', {});
 
   componentDidMount() {
-    axios.get('/solicitudes').then(({data}) => {
-      this.setState({solicitudes: data})
-    })
+    Backend.solicitudes().then(({ data }) => {
+      this.setState({ solicitudes: data });
+    });
   }
 
   mostrarSolicitudes() {
@@ -36,15 +37,15 @@ export default class ListadoSolicitudes extends React.Component {
           <td>
             {solicitud.estado}
           </td>
-            <td>
-                {solicitud.estado === 'CANCELADA' ? null :
-                    <button className="boton inverted"
-                    onClick={(e) => this.cancelar(e,
+          <td>
+            {solicitud.estado === 'CANCELADA' ? null :
+              <button className="boton inverted"
+                      onClick={(e) => this.cancelar(e,
                         solicitud)}>Cancelar</button>}
-            </td>
+          </td>
         </tr>
-      )
-    })
+      );
+    });
   }
 
   render() {
@@ -53,8 +54,12 @@ export default class ListadoSolicitudes extends React.Component {
         <div className="titulo">
           <h2>SOLICITUDES</h2>
           <div className="botones">
-            <button className="boton secondary" onClick={this.pasarAUsuarios}> Usuarios </button>
-            <button className="boton primary" onClick={this.pasarAAgregar}> Agregar </button>
+            <button className="boton secondary"
+                    onClick={this.pasarAUsuarios}> Usuarios
+            </button>
+            <button className="boton primary"
+                    onClick={this.pasarAAgregar}> Agregar
+            </button>
           </div>
         </div>
         <div>
@@ -76,17 +81,18 @@ export default class ListadoSolicitudes extends React.Component {
       </div>
     );
   }
-    cancelar = (e, solicitud) => {
-        e.preventDefault();
-        backendApi.cancelarSolicitud(solicitud).then(this.actualizarSolicitud);
-    };
 
-    actualizarSolicitud = solicitudActualizada => {
-        this.setState({
-            solicitudes: this.state.solicitudes.map(
-                solicitud => solicitud._id === solicitudActualizada._id
-                    ? solicitudActualizada
-                    : solicitud),
-        });
-    };
+  cancelar = (e, solicitud) => {
+    e.preventDefault();
+    backendApi.cancelarSolicitud({ solicitud }).then(this.actualizarSolicitud);
+  };
+
+  actualizarSolicitud = solicitudActualizada => {
+    this.setState({
+      solicitudes: this.state.solicitudes.map(
+        solicitud => solicitud._id === solicitudActualizada._id
+          ? solicitudActualizada
+          : solicitud),
+    });
+  };
 }
