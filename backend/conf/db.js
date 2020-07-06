@@ -26,7 +26,7 @@ const setupTestDB = () => {
 };
 
 const setupDevDB = () => {
-  mongoose.connect('mongodb://localhost:27017/dev', mongooseOpts);
+  mongoose.connect('mongodb://mongo:27017/dev', mongooseOpts);
 }
 
 if(process.env.NODE_ENV === 'test') {  
