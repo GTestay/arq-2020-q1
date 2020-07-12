@@ -1,6 +1,7 @@
 import React from 'react';
 
-const UsuarioContext = React.createContext({ // valores defaults
+// Valores default.
+const UsuarioContext = React.createContext({ 
     logueado: false,
     usuario: { token: '', email: '' },
     guardarUsuario: (usuario) => ({ usuario }),

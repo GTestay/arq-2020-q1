@@ -27,15 +27,16 @@ class Login extends React.Component {
   };
 
   render() {
-    return (<UsuarioContext.Consumer>
-        {value => {
+    return (
+      <UsuarioContext.Consumer>
+        {context => {
           return <div className={styles.login}>
             <div className={styles.titulo}>
               <h2>INSUMOS MEDICOS</h2>
             </div>
 
             <form className={styles.form}
-                  onSubmit={event => this.ingresar(event, value)}>
+                  onSubmit={event => this.ingresar(event, context)}>
               <div className="input-group 1-col">
                 <label>
                   Ingrese su email:

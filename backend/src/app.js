@@ -15,7 +15,8 @@ app.use(express.json());
 app.use(cors());
 app.use(requestMiddleware);
 
-const rutasAutenticadas = express.Router()
+const rutasAutenticadas = express.Router();
+
 if(process.env.NODE_ENV !== 'test'){
     rutasAutenticadas.use((req, res, next) => {
         const token = req.headers['token-usuario'];
@@ -82,10 +83,9 @@ rutasSinAutenticacion.route('/login')
         logger.appInfo(`Logueando a ${email}`);
 
         const usuario = await repositorioUsuarios.obtenerPorEmail(email);
-
     if(!!usuario) {
             logger.appInfo(`${email} se ha logueado satisfactoriamente`);
-            res.send({ ...usuario, token: jwt.sign(usuario.toString(), dotEnv.JWT_TOKEN) });
+            res.send({ usuario: usuario, token: jwt.sign(usuario.toString(), dotEnv.JWT_TOKEN) });
         } else {
             respuestaDeError(res, 404, `${email} no se ha logueado satisfactoriamente`);
         }
