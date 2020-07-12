@@ -7,8 +7,9 @@ export default class Backend {
   }
 
   static _tokenUsuario() {
-    const usuario = obtenerSession();
-    const headers = { headers: { 'token-usuario': usuario.token } };
+    const { usuario, token } = obtenerSession();
+    const headers = { headers: { 'token-usuario': token } };
+
     return { usuario, headers };
   }
 
@@ -25,14 +26,14 @@ export default class Backend {
   }
 
   static cancelarSolicitud({ _id }) {
-    let { usuario, headers } = this._tokenUsuario();
+    const { usuario: { email }, headers } = this._tokenUsuario();
 
-    return axios.patch(`/solicitudes/${_id}/cancelar`,
-      { email: usuario.email }, headers).then(res => res.data);
+    return axios.patch(`/solicitudes/${_id}/cancelar`, { email }, headers).then(res => res.data);
   }
 
-  static guardarSolicitud({ email, area, insumo }) {
-    return axios.post(`/solicitudes`, { email, area, insumo },
-      this._tokenUsuario().headers);
+  static guardarSolicitud({ area, insumo }) {
+    const { usuario: { email }, headers } = this._tokenUsuario();
+
+    return axios.post(`/solicitudes`, { email, area, insumo }, headers);
   }
 }

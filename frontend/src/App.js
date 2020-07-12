@@ -25,9 +25,9 @@ class App extends React.Component {
     this.setState({ logueado: !!usuario, usuario });
   }
 
-  ingresarUsuario = (usuario) => {
-    guardarSession(usuario);
-    this.setState({ usuario, logueado: !!usuario });
+  ingresarUsuario = (session) => {
+    guardarSession(session);
+    this.setState({ usuario: session, logueado: !!session });
   };
 
   render() {

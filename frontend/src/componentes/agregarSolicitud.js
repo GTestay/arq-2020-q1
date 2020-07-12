@@ -9,8 +9,7 @@ class AgregarSolicitud extends React.Component {
 
         this.state = {
           area: 'Atención de pacientes',
-          insumo: 'Máscaras protectoras',
-          email: 'pepito@gmail.com'
+          insumo: 'Máscaras protectoras'
         }
     }
 
