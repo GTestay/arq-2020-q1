@@ -15,6 +15,7 @@ class RegistarUsuario extends React.Component {
       entidad: '',
       cargo: '',
       localidad: '',
+      rol: 'solicitante',
     };
   }
 
@@ -33,6 +34,7 @@ class RegistarUsuario extends React.Component {
       entidad: this.state.entidad,
       cargo: this.state.cargo,
       localidad: this.state.localidad,
+      rol: this.state.rol,
     }).then(_ => {
       this.pasarAUsuarios();
     }).catch(console.log);
@@ -52,7 +54,7 @@ class RegistarUsuario extends React.Component {
         </div>
 
         <form>
-          <div className="input-group col-6">
+          <div className="input-group col-4">
             <label>
               Nombre
               <input required placeholder="ej.: David Correa"
@@ -99,6 +101,14 @@ class RegistarUsuario extends React.Component {
                      value={this.state.localidad}
                      onChange={(event) => this.cambiarPropiedad('localidad',
                        event.target.value)}/>
+            </label>
+
+            <label>
+              Rol
+              <select value={this.state.rol} onChange={(event) => this.cambiarPropiedad('rol', event.target.value)}>
+                <option value="solicitante">Solicitante</option>
+                <option value="administrador">Administrador</option>
+              </select>
             </label>
           </div>
 

@@ -6,7 +6,21 @@ class RutaAutenticada extends React.Component {
   render() {
     return (
       <UsuarioContext.Consumer>
-        { contexto => (contexto.estaLogueado ? <Route {...this.props}/> : <Redirect to="/"/>) }
+        { contexto => {
+          if(contexto.estaLogueado) {
+            if(this.props.soloAdministrador) {
+              if(contexto.usuario.esAdministrador()) {
+                return <Route {...this.props}/>;
+              } else {
+                return <Redirect to="/usuarios"/>;
+              }
+            } else {
+              return <Route {...this.props}/>;
+            }
+          } else {
+            return <Redirect to="/"/>;
+          }
+        }}
       </UsuarioContext.Consumer>
     )
   }
