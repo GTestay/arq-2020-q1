@@ -112,16 +112,10 @@ form {
     display: grid;
     grid-gap: 2em;
 
-    &.col-1 {
-      grid-template-columns: 1fr;
-    }
-
-    &.col-2 {
-      grid-template-columns: 1fr 1fr;
-    }
-
-    &.col-6 {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    @for $i from 1 through 12 {
+      &.col-#{$i} {
+        grid-template-columns: repeat($i, 1fr);
+      }
     }
 
     label {
@@ -206,6 +200,7 @@ select {
   border: 0.5px solid $primary-color;
   padding: 0.5em 0.7em;
   background-color: white;
+  margin: 0.3em 0;
 
   &:focus {
     outline: none;

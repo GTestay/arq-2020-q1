@@ -1,11 +1,12 @@
 class Usuario {
-  constructor({ nombre, email, telefono, entidad, cargo, localidad }) {
+  constructor({ nombre, email, telefono, entidad, cargo, localidad, rol }) {
     this.nombre = nombre;
     this.email = email;
     this.telefono = telefono;
     this.entidad = entidad;
     this.cargo = cargo;
     this.localidad = localidad;
+    this.rol = rol;
 
     this._validarCampos();
   }

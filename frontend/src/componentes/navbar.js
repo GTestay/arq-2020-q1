@@ -15,7 +15,7 @@ class Navbar extends React.Component {
                 </h3>
                 <div className="usuario">
                   <span>
-                    {context.email}
+                    {context.usuario.email}
                   </span>
                   <svg onClick={context.cerrarSesion} id="i-signout" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
                     <path d="M28 16 L8 16 M20 8 L28 16 20 24 M11 28 L3 28 3 4 11 4" />

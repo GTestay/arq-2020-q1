@@ -1,4 +1,5 @@
 const mongoose = require('../../conf/db');
+const { solicitante } = require('../modelos/roles');
 
 const usuarioSchema = new mongoose.Schema({
   nombre: String,
@@ -7,6 +8,7 @@ const usuarioSchema = new mongoose.Schema({
   entidad: String,
   cargo: String,
   localidad: String,
+  rol: { type: String, default: solicitante },
 });
 
 const Usuario = mongoose.model('Usuario', usuarioSchema);
@@ -14,14 +16,15 @@ const Usuario = mongoose.model('Usuario', usuarioSchema);
 class RepositorioUsuarios {
   constructor() {}
 
-  agregar({ nombre, email, telefono, entidad, cargo, localidad }) {
+  agregar({ nombre, email, telefono, entidad, cargo, localidad, rol }) {
     Usuario.create({
       nombre: nombre,
       email: email,
       telefono: telefono,
       entidad: entidad,
       cargo: cargo,
-      localidad: localidad
+      localidad: localidad,
+      rol: rol
     })
   }
 
@@ -30,7 +33,7 @@ class RepositorioUsuarios {
   }
 
   async obtenerPorEmail(emailUsuario) {
-    return Usuario.findOne({ email: emailUsuario}).exec();
+    return Usuario.findOne({ email: emailUsuario }).exec();
   }
 
   async cantidad() {

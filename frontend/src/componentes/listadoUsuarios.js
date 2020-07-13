@@ -3,6 +3,7 @@ import React from 'react';
 import '../estilos/componentes.scss';
 import Backend from '../api/backendApi';
 import Navbar from './navbar';
+import UsuarioContext from './UsuarioContext';
 
 class ListadoUsuarios extends React.Component {
   constructor(props) {
@@ -57,9 +58,16 @@ class ListadoUsuarios extends React.Component {
             <button className="boton secondary"
                     onClick={this.pasarASolicitudes}> Solicitudes
             </button>
-            <button className="boton primary"
+            <UsuarioContext.Consumer>
+              {context => {
+                return (
+                  context.usuario.esAdministrador() && 
+                  <button className="boton primary"
                     onClick={this.pasarARegistrar}> Registrar
-            </button>
+                  </button>
+                )
+              }}
+            </UsuarioContext.Consumer>
           </div>
         </div>
 

@@ -4,6 +4,7 @@ import backendApi from '../api/backendApi';
 import '../estilos/componentes.scss';
 import Backend from '../api/backendApi';
 import Navbar from './navbar';
+import UsuarioContext from './UsuarioContext';
 
 export default class ListadoSolicitudes extends React.Component {
   constructor(props) {
@@ -58,9 +59,16 @@ export default class ListadoSolicitudes extends React.Component {
             <button className="boton secondary"
                     onClick={this.pasarAUsuarios}> Usuarios
             </button>
-            <button className="boton primary"
+            <UsuarioContext.Consumer>
+              {context => {
+                return (
+                  context.usuario.esAdministrador() && 
+                  <button className="boton primary"
                     onClick={this.pasarAAgregar}> Agregar
-            </button>
+                  </button>
+                )
+              }}
+            </UsuarioContext.Consumer>
           </div>
         </div>
         <div>
