@@ -21,9 +21,14 @@ class App extends React.Component {
 
     const sesion = obtenerSession();
     const estaLogueado = !!sesion;
-    const email = sesion.usuario.email;
 
-    this.state = { estaLogueado: estaLogueado, email: email };
+    if(estaLogueado) {
+      const email = sesion.usuario.email;
+
+      this.state = { estaLogueado, email };
+    } else {
+      this.state = { estaLogueado: false, email: '' }; 
+    }
   }
 
   iniciarSesion = (sesion) => {
