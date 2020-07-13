@@ -1,9 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 
 import backendApi from '../api/backendApi';
 import '../estilos/componentes.scss';
 import Backend from '../api/backendApi';
+import Navbar from './navbar';
 
 export default class ListadoSolicitudes extends React.Component {
   constructor(props) {
@@ -51,6 +51,7 @@ export default class ListadoSolicitudes extends React.Component {
   render() {
     return (
       <div>
+        <Navbar/>
         <div className="titulo">
           <h2>SOLICITUDES</h2>
           <div className="botones">

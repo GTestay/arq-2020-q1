@@ -21,7 +21,7 @@ class Login extends React.Component {
   ingresar = (e, context) => {
     e.preventDefault();
     Backend.login(this.state.email).then((req) => {
-      context.ingresarUsuario(req.data);
+      context.iniciarSesion(req.data);
       this.props.history.push('/usuarios');
     }).catch(e => this.cambiarPropiedad('falloAlLoguear', e));
   };

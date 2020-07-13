@@ -4,16 +4,14 @@ import UsuarioContext from './UsuarioContext';
 
 class RutaAutenticada extends React.Component {
   render() {
-    return <UsuarioContext.Consumer>
-      {contexto => {
-        return !contexto.logueado ?
-          <Redirect to="/"/> :
-          <Route {...this.props}/>;
-      }}
-    </UsuarioContext.Consumer>;
+    return (
+      <UsuarioContext.Consumer>
+        { contexto => (contexto.estaLogueado ? <Route {...this.props}/> : <Redirect to="/"/>) }
+      </UsuarioContext.Consumer>
+    )
   }
 }
 
-UsuarioContext.contextType = RutaAutenticada;
+RutaAutenticada.contextType = UsuarioContext;
 
 export default RutaAutenticada;

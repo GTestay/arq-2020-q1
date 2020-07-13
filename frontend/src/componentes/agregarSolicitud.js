@@ -2,6 +2,7 @@ import React from 'react';
 
 import backendApi from '../api/backendApi';
 import '../estilos/componentes.scss';
+import Navbar from './navbar';
 
 class AgregarSolicitud extends React.Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class AgregarSolicitud extends React.Component {
     render () {
       return (
         <div>
+          <Navbar/>
           <div className="titulo">
             <h2>ALTA DE SOLICITUD</h2>
             <div className="botones">

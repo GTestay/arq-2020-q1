@@ -1,5 +1,32 @@
 @import './variables.scss';
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1em;
+  padding: 0 1em;
+
+  .usuario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      margin-right: 1em;
+      font-weight: bolder;
+    }
+
+    svg {
+      background-color: $secondary-color;
+      padding: .5em;
+      color: $background-color;
+      border-radius: $border-radius;
+      cursor: pointer;
+    }
+  }
+}
+
 .titulo {
   display: flex;
   padding: 0.3em 2em;
@@ -125,6 +152,7 @@ table {
   width: 100%;
   box-shadow: $box-shadow;
   background-color: transparent;
+  margin-bottom: 5em;
 
   tr:first-child {
     th:first-child {
@@ -153,7 +181,7 @@ table {
   }
 
   th {
-    background-color: #222831;
+    background-color: $primary-color;
     color: $accent-color;
     text-align: left;
   }
@@ -175,7 +203,7 @@ table, th, td {
 select {
   height: 3em;
   border-radius: $border-radius;
-  border: 0.5px solid #222831;
+  border: 0.5px solid $primary-color;
   padding: 0.5em 0.7em;
   background-color: white;
 
