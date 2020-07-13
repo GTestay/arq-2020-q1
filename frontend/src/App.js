@@ -12,28 +12,33 @@ import AgregarSolicitud from './componentes/agregarSolicitud';
 import RutaAutenticada from './componentes/RutaAutenticada';
 
 import UsuarioContext from './componentes/UsuarioContext';
-import { guardarSession, obtenerSession } from './sesion';
+import { obtenerSession, guardarSession, eliminarSession } from './sesion';
 
 class App extends React.Component {
+    
   constructor(props) {
     super(props);
-    this.state = { logueado: false, usuario: {} };
+
+    const sesion = obtenerSession();
+    const estaLogueado = !!sesion;
+    const email = sesion.usuario.email;
+
+    this.state = { estaLogueado: estaLogueado, email: email };
   }
 
-  componentDidMount() {
-    let usuario = obtenerSession();
-    this.setState({ logueado: !!usuario, usuario });
+  iniciarSesion = (sesion) => {
+    guardarSession(sesion);
+    this.setState({ estaLogueado: true, email: sesion.usuario.email });
   }
 
-  ingresarUsuario = (session) => {
-    guardarSession(session);
-    this.setState({ usuario: session, logueado: !!session });
-  };
+  cerrarSesion = () => {
+    eliminarSession();
+    this.setState({ estaLogueado: false, email: '' });
+  }
 
   render() {
     return (
-      <UsuarioContext.Provider
-        value={{ ingresarUsuario: this.ingresarUsuario, ...this.state }}>
+      <UsuarioContext.Provider value={{ iniciarSesion: this.iniciarSesion, cerrarSesion: this.cerrarSesion, ...this.state }}>
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Login}/>

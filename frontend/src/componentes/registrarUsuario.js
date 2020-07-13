@@ -1,8 +1,8 @@
 import React from 'react';
-import axios from 'axios';
 
 import '../estilos/componentes.scss';
 import Backend from '../api/backendApi';
+import Navbar from './navbar';
 
 class RegistarUsuario extends React.Component {
   constructor(props) {
@@ -41,6 +41,7 @@ class RegistarUsuario extends React.Component {
   render() {
     return (
       <div>
+        <Navbar/>
         <div className="titulo">
           <h2>REGISTRO DE USUARIOS</h2>
           <div className="botones">
