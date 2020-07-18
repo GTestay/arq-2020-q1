@@ -25,14 +25,23 @@ const setupTestDB = () => {
   }
 };
 
-const setupDevDB = () => {
+const setupProdDB = () => {
   mongoose.connect('mongodb://mongo:27017/dev', mongooseOpts);
-}
+};
 
-if(process.env.NODE_ENV === 'test') {  
-  setupTestDB();
-} else {
-  setupDevDB();
+const setupDevDB = () => {
+  mongoose.connect('mongodb://localhost:27017/dev', mongooseOpts);
+};
+
+switch(process.env.NODE_ENV) {
+  case ('test'):
+    setupTestDB();
+    break;
+  case ('prod'):
+    setupProdDB();
+    break;
+  default:
+    setupDevDB();
 }
 
 module.exports = mongoose;
