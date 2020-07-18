@@ -54,7 +54,7 @@ class App extends React.Component {
             <RutaAutenticada exact path="/solicitudes"
                              component={ListadoSolicitudes}/>
             <RutaAutenticada exact path="/solicitudes/agregar"
-                             component={AgregarSolicitud} soloAdministrador/>
+                             component={AgregarSolicitud}/>
 
             <Redirect to="/"/>
           </Switch>
