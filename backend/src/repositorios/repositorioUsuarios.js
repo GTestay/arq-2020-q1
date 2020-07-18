@@ -17,7 +17,7 @@ class RepositorioUsuarios {
   constructor() {}
 
   agregar({ nombre, email, telefono, entidad, cargo, localidad, rol }) {
-    Usuario.create({
+    return Usuario.create({
       nombre: nombre,
       email: email,
       telefono: telefono,
