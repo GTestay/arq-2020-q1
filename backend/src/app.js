@@ -3,7 +3,7 @@ const app = express();
 const cors = require('cors');
 const { logger, requestMiddleware } = require('../conf/logger');
 const jwt = require('jsonwebtoken');
-const dotEnv = require('dotenv').config().parsed;
+const dotEnv = process.env.NODE_ENV === 'production' ? process.env : require('dotenv').config().parsed;
 
 const Usuario = require('./modelos/usuario');
 const Solicitud = require('./modelos/solicitud');

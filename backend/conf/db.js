@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoMemoryServer = new MongoMemoryServer();
 const mongooseOpts = { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false };
 
 const setupTestDB = () => {
+  const { MongoMemoryServer } = require('mongodb-memory-server');
+  const mongoMemoryServer = new MongoMemoryServer();
+
   mongoose.connectTestDatabase = async () => {
     const uri = await mongoMemoryServer.getUri();
     mongoose.connect(uri, mongooseOpts);
@@ -26,7 +27,7 @@ const setupTestDB = () => {
 };
 
 const setupProdDB = () => {
-  mongoose.connect('mongodb://mongo:27017/dev', mongooseOpts);
+  mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongo:27017/dev', mongooseOpts);
 };
 
 const setupDevDB = () => {
@@ -37,7 +38,7 @@ switch(process.env.NODE_ENV) {
   case ('test'):
     setupTestDB();
     break;
-  case ('prod'):
+  case ('production'):
     setupProdDB();
     break;
   default:
