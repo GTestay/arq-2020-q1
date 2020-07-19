@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node index.js",
+    "start-local": "NODE_ENV=local node index.js",
     "test": "NODE_ENV=test mocha test --recursive",
-    "seed": "node conf/seed.js"
+    "seed": "NODE_ENV=local node conf/seed.js"
   },
   "repository": {
     "type": "git",
