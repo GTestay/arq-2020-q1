@@ -4,11 +4,11 @@ import { AdminBotonRechazarSolicitud } from './adminBotonRechazarSolicitud';
 import { AdminBotonAprobarSolicitud } from './adminBotonAprobarSolicitud';
 
 export function AdminAccionPendiente(props) {
-  return <div>
-    <AdminBotonRechazarSolicitud solicitud={props.solicitud}
-                                 onUpdate={props.onUpdate}/>
+  return <div className="flex">
     <AdminBotonAprobarSolicitud solicitud={props.solicitud}
                                 onUpdate={props.onUpdate}/>
+    <AdminBotonRechazarSolicitud solicitud={props.solicitud}
+                                 onUpdate={props.onUpdate}/>
   </div>;
 }
 

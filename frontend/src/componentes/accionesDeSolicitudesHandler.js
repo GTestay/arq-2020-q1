@@ -3,7 +3,6 @@ import React from 'react';
 import { SolicitudAccionPendiente } from './solicitudAccionPendiente';
 
 export function AccionesDeSolicitudesHandler({ solicitud, ...props }) {
-
   switch(solicitud.estado) {
     case 'PENDIENTE':
       return <SolicitudAccionPendiente solicitud={solicitud} {...props} />;

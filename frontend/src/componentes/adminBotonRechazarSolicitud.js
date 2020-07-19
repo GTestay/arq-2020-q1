@@ -2,6 +2,7 @@ import React from 'react';
 import backendApi from '../api/backendApi';
 import Modal from 'react-modal';
 import * as PropTypes from 'prop-types';
+import { BotonConIcono } from './botonConIcono';
 
 const customStyles = {
   content: {
@@ -33,29 +34,32 @@ export function AdminBotonRechazarSolicitud({ solicitud, onUpdate }) {
     cerrarModal();
   }
 
-  return <div>
-    <button className="boton inverted" onClick={abrirModal}>Rechazar</button>
-    <Modal
-      isOpen={estadoModal}
-      onRequestClose={setModalEstado}
-      contentLabel="Rechazar solicitud"
-      style={customStyles}
-    >
-      <h2>Rechazar solicitud de {solicitud.email}</h2>
-      <div>
-        <label>
-          Motivo de rechazo
-          <input required placeholder="Escriba el motivo..."
-                 value={motivoDeRechazo}
-                 onChange={(event) => setMotivoDeRechazo(event.target.value)}/>
-        </label>
+  return (
+    <React.Fragment>
+      <BotonConIcono onClick={abrirModal} texto="Rechazar" icono={'rechazar'}/>
+      
+      <Modal
+        isOpen={estadoModal}
+        onRequestClose={setModalEstado}
+        contentLabel="Rechazar solicitud"
+        style={customStyles}
+      >
+        <h2>Rechazar solicitud de {solicitud.email}</h2>
         <div>
-          <button onClick={rechazar}>Rechazar</button>
-          <button onClick={cerrarModal}>Cancelar</button>
+          <label>
+            Motivo de rechazo
+            <input required placeholder="Escriba el motivo..."
+                  value={motivoDeRechazo}
+                  onChange={(event) => setMotivoDeRechazo(event.target.value)}/>
+          </label>
+          <div>
+            <button onClick={rechazar}>Rechazar</button>
+            <button onClick={cerrarModal}>Cancelar</button>
+          </div>
         </div>
-      </div>
-    </Modal>
-  </div>;
+      </Modal>
+    </React.Fragment>
+  );
 }
 
 AdminBotonRechazarSolicitud.propTypes = {
