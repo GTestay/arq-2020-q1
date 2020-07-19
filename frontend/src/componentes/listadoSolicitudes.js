@@ -22,6 +22,15 @@ export default class ListadoSolicitudes extends React.Component {
     }).catch(() => this.setState({ solicitudes: [] }));
   }
 
+  actualizarSolicitud = solicitudActualizada => {
+    this.setState({
+      solicitudes: this.state.solicitudes.map(
+        solicitud => solicitud._id === solicitudActualizada._id
+          ? solicitudActualizada
+          : solicitud),
+    });
+  };
+
   mostrarSolicitudes() {
     return this.state.solicitudes.map((solicitud) => {
       return (
@@ -88,13 +97,4 @@ export default class ListadoSolicitudes extends React.Component {
       </div>
     );
   }
-
-  actualizarSolicitud = solicitudActualizada => {
-    this.setState({
-      solicitudes: this.state.solicitudes.map(
-        solicitud => solicitud._id === solicitudActualizada._id
-          ? solicitudActualizada
-          : solicitud),
-    });
-  };
 }

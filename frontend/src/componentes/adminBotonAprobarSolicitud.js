@@ -2,6 +2,7 @@ import React from 'react';
 import backendApi from '../api/backendApi';
 import Modal from 'react-modal';
 import * as PropTypes from 'prop-types';
+import { BotonConIcono } from './botonConIcono';
 
 const customStyles = {
   content: {
@@ -33,29 +34,32 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
     cerrarModal();
   }
 
-  return <div>
-    <button className="boton inverted" onClick={abrirModal}>Aprobar</button>
-    <Modal
-      isOpen={estadoModal}
-      onRequestClose={setModalEstado}
-      contentLabel="Aprobar solicitud"
-      style={customStyles}
-    >
-      <h2>Aprobar solicitud de {solicitud.email}</h2>
-      <div>
-        <label>
-          Elija un Proveedor
-          <input required placeholder="Nombre del proveedor..."
-                 value={proveedor}
-                 onChange={(event) => setProveedor(event.target.value)}/>
-        </label>
+  return (
+    <React.Fragment>
+      <BotonConIcono onClick={abrirModal} texto="Aprobar" icono={'aprobar'}/>
+      
+      <Modal
+        isOpen={estadoModal}
+        onRequestClose={setModalEstado}
+        contentLabel="Aprobar solicitud"
+        style={customStyles}
+      >
+        <h2>Aprobar solicitud de {solicitud.email}</h2>
         <div>
-          <button onClick={aprobar}>Aprobar</button>
-          <button onClick={cerrarModal}>Cancelar</button>
+          <label>
+            Elija un Proveedor
+            <input required placeholder="Nombre del proveedor..."
+                  value={proveedor}
+                  onChange={(event) => setProveedor(event.target.value)}/>
+          </label>
+          <div>
+            <button onClick={aprobar}>Aprobar</button>
+            <button onClick={cerrarModal}>Cancelar</button>
+          </div>
         </div>
-      </div>
-    </Modal>
-  </div>;
+      </Modal>
+    </React.Fragment>
+  );
 }
 
 AdminBotonAprobarSolicitud.propTypes = {

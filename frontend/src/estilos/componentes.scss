@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+.flex {
+  display: flex;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -15,14 +19,6 @@
     span {
       margin-right: 1em;
       font-weight: bolder;
-    }
-
-    svg {
-      background-color: $secondary-color;
-      padding: .5em;
-      color: $background-color;
-      border-radius: $border-radius;
-      cursor: pointer;
     }
   }
 }
@@ -51,8 +47,7 @@
   -moz-appearance: none;
   text-decoration: none;
   cursor: pointer;
-  padding: 1em 2em;
-  width: 100px;
+  padding: 1em 1em;
   border-radius: $border-radius;
   font-size: 1rem;
   font-weight: bold;
@@ -97,6 +92,16 @@
 
     &:hover {
       background-color: lighten($secondary-color, 50);
+    }
+  }
+
+  &.con-icono {
+    font-size: .75rem;
+
+    svg {
+      height: 1.2em;
+      width: 1.2em;
+      margin-right: .5em;
     }
   }
 }
