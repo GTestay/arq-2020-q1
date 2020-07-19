@@ -25,7 +25,7 @@ class RepositorioSolicitudes {
     return solicitud.find({});
   }
 
-  async cancelar({id, email}) {
+  async cancelar({ id, email }) {
     return solicitud
       .findOneAndUpdate({_id: id, email},
         {estado: Solicitud.ESTADOS.CANCELADA},
