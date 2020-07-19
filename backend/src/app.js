@@ -9,6 +9,7 @@ const Usuario = require('./modelos/usuario');
 const Solicitud = require('./modelos/solicitud');
 const repositorioUsuarios = require('./repositorios/repositorioUsuarios');
 const repositorioSolicitud = require('./repositorios/repositorioDeSolicitudes');
+const { administrador } = require('../src/modelos/roles');
 
 app.set('jwtToken', dotEnv.JWT_TOKEN);
 app.use(express.json());
@@ -67,13 +68,51 @@ rutasAutenticadas.route('/solicitudes/:id/cancelar')
         const email = req.body.email;
         const solicitud = await repositorioSolicitud.cancelar({ id, email });
 
-        if(!!solicitud) {
+        if(!!solicitud && solicitud.estado === Solicitud.ESTADOS.CANCELADA) {
             logger.appInfo(`Solicitud de ID ${id} del usuario ${email} ha sido cancelada`);
             res.send(solicitud);
         } else {
             respuestaDeError(res, 404, `Solicitud de ID ${id} del usuario ${email} no se ha podido cancelar`);
         }
 });
+
+rutasAutenticadas.route('/solicitudes/:id/aprobar')
+    .patch(async (req, res) => {
+        const id = req.params.id;
+        const { email, proveedor } = req.body;
+        await validarUsuarioEsAdmin(res, email);
+
+        const solicitud = await repositorioSolicitud.aprobar({id, email, proveedor});
+
+        if(!!solicitud && solicitud.estado === Solicitud.ESTADOS.APROBADA) {
+          logger.appInfo(`Solicitud de ID ${id} ha sido aprobada por ${email} con el proveedor ${proveedor}`);
+            res.send(solicitud);
+        } else {
+            respuestaDeError(res, 404, `Solicitud de ID ${id} no se ha podido aprobar`);
+        }
+});
+
+rutasAutenticadas.route('/solicitudes/:id/rechazar')
+    .patch(async (req, res) => {
+        const id = req.params.id;
+        const {email, motivoDeRechazo } = req.body;
+        await validarUsuarioEsAdmin(res, email);
+
+        const solicitud = await repositorioSolicitud.rechazar({id, email, motivoDeRechazo});
+
+        if(!!solicitud && solicitud.estado === Solicitud.ESTADOS.DESAPROBADA) {
+            logger.appInfo(`Solicitud de ID ${id} ha sido rechazada por ${email} por el siguiente motivo ${motivoDeRechazo}`);
+            res.send(solicitud);
+        } else {
+            respuestaDeError(res, 404, `Solicitud de ID ${id} no se ha podido rechazar`);
+        }
+});
+
+async function validarUsuarioEsAdmin(res, email) {
+    if(!await repositorioUsuarios.tieneRol(email, administrador)){
+        respuestaDeError(res, 403, `No tienes privilegios de admin`);
+    }
+}
 
 const rutasSinAutenticacion = express.Router()
 
@@ -83,7 +122,7 @@ rutasSinAutenticacion.route('/login')
         logger.appInfo(`Logueando a ${email}`);
 
         const usuario = await repositorioUsuarios.obtenerPorEmail(email);
-    if(!!usuario) {
+        if(!!usuario) {
             logger.appInfo(`${email} se ha logueado satisfactoriamente`);
             res.send({ usuario: usuario, token: jwt.sign(usuario.toString(), dotEnv.JWT_TOKEN) });
         } else {

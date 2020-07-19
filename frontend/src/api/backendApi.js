@@ -18,7 +18,7 @@ export default class Backend {
   }
 
   static crearUsuario(nuevoUsuario) {
-    return axios.post(`/usuarios`,nuevoUsuario , this._tokenUsuario().headers);
+    return axios.post(`/usuarios`, nuevoUsuario, this._tokenUsuario().headers);
   }
 
   static solicitudes() {
@@ -28,12 +28,27 @@ export default class Backend {
   static cancelarSolicitud({ _id }) {
     const { usuario: { email }, headers } = this._tokenUsuario();
 
-    return axios.patch(`/solicitudes/${_id}/cancelar`, { email }, headers).then(res => res.data);
+    return axios.patch(`/solicitudes/${_id}/cancelar`, { email }, headers).
+      then(res => res.data);
   }
 
   static guardarSolicitud({ area, insumo }) {
     const { usuario: { email }, headers } = this._tokenUsuario();
 
     return axios.post(`/solicitudes`, { email, area, insumo }, headers);
+  }
+
+  static aprobarSolicitud({ _id }, proveedor) {
+    const { usuario, headers } = this._tokenUsuario();
+
+    return axios.patch(`/solicitudes/${_id}/aprobar`,
+      { email: usuario.email , proveedor}, headers).then(res => res.data);
+  }
+
+  static rechazarSolicitud({ _id }, motivoDeRechazo) {
+    const { usuario, headers } = this._tokenUsuario();
+
+    return axios.patch(`/solicitudes/${_id}/rechazar`,
+      { email: usuario.email, motivoDeRechazo }, headers).then(res => res.data);
   }
 }
