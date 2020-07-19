@@ -75,6 +75,34 @@ rutasAutenticadas.route('/solicitudes/:id/cancelar')
         }
 });
 
+rutasAutenticadas.route('/solicitudes/:id/aprobar')
+    .patch(async (req, res) => {
+        const id = req.params.id;
+        const {email, proveedor } = req.body;
+        const solicitud = await repositorioSolicitud.aprobar({id, email, proveedor});
+
+        if(!!solicitud) {
+          logger.appInfo(`Solicitud de ID ${id} ha sido aprobada por ${email} con el proveedor${proveedor}`);
+            res.send(solicitud);
+        } else {
+            respuestaDeError(res, 404, `Solicitud de ID ${id} no se ha podido aprobar`);
+        }
+});
+
+rutasAutenticadas.route('/solicitudes/:id/rechazar')
+    .patch(async (req, res) => {
+        const id = req.params.id;
+        const {email, descripcion } = req.body;
+        const solicitud = await repositorioSolicitud.rechazar({id, email, descripcion});
+
+        if(!!solicitud) {
+            logger.appInfo(`Solicitud de ID ${id} ha sido rechazada por ${email} por la siguiente razón ${descripcion}`);
+            res.send(solicitud);
+        } else {
+            respuestaDeError(res, 404, `Solicitud de ID ${id} no se ha podido rechazar`);
+        }
+});
+
 const rutasSinAutenticacion = express.Router()
 
 rutasSinAutenticacion.route('/login')
