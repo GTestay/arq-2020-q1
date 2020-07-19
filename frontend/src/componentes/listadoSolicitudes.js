@@ -60,9 +60,13 @@ export default class ListadoSolicitudes extends React.Component {
         <div className="titulo">
           <h2>SOLICITUDES</h2>
           <div className="botones">
-            <button className="boton secondary"
-                    onClick={this.pasarAUsuarios}> Usuarios
-            </button>
+            <UsuarioContext.Consumer>
+              {context =>
+                context.usuario.esAdministrador() ? <button className="boton secondary"
+                                                    onClick={this.pasarAUsuarios}> Usuarios
+                </button> : null}
+            </UsuarioContext.Consumer>
+
             <button className="boton primary"
                     onClick={this.pasarAAgregar}>
               Agregar

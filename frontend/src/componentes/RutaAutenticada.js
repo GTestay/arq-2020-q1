@@ -12,7 +12,7 @@ class RutaAutenticada extends React.Component {
               if(contexto.usuario.esAdministrador()) {
                 return <Route {...this.props}/>;
               } else {
-                return <Redirect to="/usuarios"/>;
+                return <Redirect to="/solicitudes"/>;
               }
             } else {
               return <Route {...this.props}/>;
