@@ -1,10 +1,10 @@
 import React from 'react';
 
-import backendApi from '../api/backendApi';
 import '../estilos/componentes.scss';
 import Backend from '../api/backendApi';
 import Navbar from './navbar';
 import UsuarioContext from './UsuarioContext';
+import { AccionesDeSolicitudesHandler } from './accionesDeSolicitudesHandler';
 
 export default class ListadoSolicitudes extends React.Component {
   constructor(props) {
@@ -18,8 +18,8 @@ export default class ListadoSolicitudes extends React.Component {
 
   componentDidMount() {
     Backend.solicitudes().then(({ data }) => {
-      this.setState({ solicitudes: data });
-    });
+      this.setState({ solicitudes: data ?? [] });
+    }).catch(() => this.setState({ solicitudes: [] }));
   }
 
   mostrarSolicitudes() {
@@ -39,10 +39,14 @@ export default class ListadoSolicitudes extends React.Component {
             {solicitud.estado}
           </td>
           <td>
-            {solicitud.estado === 'CANCELADA' ? null :
-              <button className="boton inverted"
-                      onClick={(e) => this.cancelar(e,
-                        solicitud)}>Cancelar</button>}
+            <UsuarioContext.Consumer>
+              {context => {
+                return <AccionesDeSolicitudesHandler
+                  usuario={context.usuario}
+                  solicitud={solicitud}
+                  onUpdate={this.actualizarSolicitud}/>;
+              }}
+            </UsuarioContext.Consumer>
           </td>
         </tr>
       );
@@ -84,11 +88,6 @@ export default class ListadoSolicitudes extends React.Component {
       </div>
     );
   }
-
-  cancelar = (e, solicitud) => {
-    e.preventDefault();
-    backendApi.cancelarSolicitud({ solicitud }).then(this.actualizarSolicitud);
-  };
 
   actualizarSolicitud = solicitudActualizada => {
     this.setState({

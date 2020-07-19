@@ -7,7 +7,7 @@ const solicitudSchema = new mongoose.Schema({
   insumo: String,
   estado: String,
   quienCanceloOAprobo: String,
-  descripcion: String,
+  motivoDeRechazo: String,
   proveedor: String,
 });
 
@@ -17,8 +17,8 @@ class RepositorioSolicitudes {
   constructor() {
   }
 
-  async nueva({email, area, insumo, estado}) {
-    return await solicitud.create({email, area, insumo, estado})
+  async nueva({ email, area, insumo, estado }) {
+    return await solicitud.create({ email, area, insumo, estado });
   }
 
   obtenerTodos() {
@@ -34,15 +34,15 @@ class RepositorioSolicitudes {
 
   async aprobar({id, email, proveedor}) {
     return solicitud
-      .findOneAndUpdate({_id: id, email},
+      .findOneAndUpdate({_id: id},
         {estado: Solicitud.ESTADOS.APROBADA, proveedor, quienCanceloOAprobo: email},
         {new: true}).exec();
   }
 
-  async rechazar({id, email, descripcion}) {
+  async rechazar({id, email, motivoDeRechazo}) {
     return solicitud
       .findOneAndUpdate({_id: id},
-        {estado: Solicitud.ESTADOS.DESAPROBADA, descripcion, quienCanceloOAprobo: email},
+        {estado: Solicitud.ESTADOS.DESAPROBADA, motivoDeRechazo, quienCanceloOAprobo: email},
         {new: true}).exec();
   }
 

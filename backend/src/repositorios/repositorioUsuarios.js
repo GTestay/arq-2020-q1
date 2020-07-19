@@ -24,8 +24,8 @@ class RepositorioUsuarios {
       entidad: entidad,
       cargo: cargo,
       localidad: localidad,
-      rol: rol
-    })
+      rol: rol,
+    });
   }
 
   obtenerTodos() {
@@ -38,6 +38,10 @@ class RepositorioUsuarios {
 
   async cantidad() {
     return await Usuario.countDocuments();
+  }
+
+  async tieneRol(email, rol) {
+    return Usuario.exists({ email: email, rol: rol });
   }
 }
 
