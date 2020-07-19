@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Usuario from '../modelos/usuario';
 import { obtenerSession } from '../sesion';
 
 export default class Backend {
@@ -22,7 +23,13 @@ export default class Backend {
   }
 
   static solicitudes() {
-    return axios.get('/solicitudes', this._tokenUsuario().headers);
+    const token = this._tokenUsuario();
+    const usuario = new Usuario(token.usuario);
+
+    const url = usuario.esAdministrador() ? "/solicitudes" :
+      `/usuarios/${usuario.email}/solicitudes`
+
+    return axios.get(url, token.headers);
   }
 
   static cancelarSolicitud({ _id }) {

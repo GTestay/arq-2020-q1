@@ -25,6 +25,10 @@ class RepositorioSolicitudes {
     return solicitud.find({});
   }
 
+  async buscarConEmail(email) {
+    return solicitud.find({ email }).exec();
+  }
+
   async cancelar({ id, email }) {
     return solicitud
       .findOneAndUpdate({_id: id, email},

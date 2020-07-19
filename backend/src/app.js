@@ -49,6 +49,16 @@ rutasAutenticadas.route('/usuarios')
         respuestaDeCreacion(res, 'Usuario creado');
     });
 
+rutasAutenticadas.route('/usuarios/:email/solicitudes').
+  get(async (req, res) => {
+      const email = req.params.email;
+
+      const solicitudes = await repositorioSolicitud.buscarConEmail(email);
+
+      res.send(solicitudes);
+  });
+
+
 rutasAutenticadas.route('/solicitudes')
     .get( async (req, res) => {
         const solicitudes = await repositorioSolicitud.obtenerTodos();
