@@ -79,7 +79,7 @@ rutasAutenticadas.route('/solicitudes/:id/cancelar')
 rutasAutenticadas.route('/solicitudes/:id/aprobar')
     .patch(async (req, res) => {
         const id = req.params.id;
-        const {email, proveedor } = req.body;
+        const { email, proveedor } = req.body;
         await validarUsuarioEsAdmin(res, email);
 
         const solicitud = await repositorioSolicitud.aprobar({id, email, proveedor});
