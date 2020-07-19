@@ -47,7 +47,7 @@ class App extends React.Component {
             <Route exact path="/" component={Login}/>
 
             <RutaAutenticada exact path="/usuarios"
-                             component={ListadoUsuarios}/>
+                             component={ListadoUsuarios} soloAdministrador />
             <RutaAutenticada exact path="/usuarios/registrar"
                              component={RegistrarUsuario} soloAdministrador/>
 
