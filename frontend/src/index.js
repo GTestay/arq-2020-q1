@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = process.env.BACKEND_URI || 'http://localhost:4000';
 
 const history = createBrowserHistory();
 
