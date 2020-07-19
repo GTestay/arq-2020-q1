@@ -28,8 +28,7 @@ export default class Backend {
   static cancelarSolicitud({ _id }) {
     const { usuario: { email }, headers } = this._tokenUsuario();
 
-    return axios.patch(`/solicitudes/${_id}/cancelar`, { email }, headers).
-      then(res => res.data);
+    return axios.patch(`/solicitudes/${_id}/cancelar`, { email }, headers).then(res => res.data);
   }
 
   static guardarSolicitud({ area, insumo }) {
