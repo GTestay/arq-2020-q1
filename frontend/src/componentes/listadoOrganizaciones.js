@@ -3,7 +3,6 @@ import React from 'react';
 import '../estilos/componentes.scss';
 import Backend from '../api/backendApi';
 import Navbar from './navbar';
-import UsuarioContext from './UsuarioContext';
 
 class ListadoOrganizaciones extends React.Component {
   constructor(props) {
