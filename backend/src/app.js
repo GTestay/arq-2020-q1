@@ -9,6 +9,7 @@ const Usuario = require('./modelos/usuario');
 const Solicitud = require('./modelos/solicitud');
 const repositorioUsuarios = require('./repositorios/repositorioUsuarios');
 const repositorioSolicitud = require('./repositorios/repositorioDeSolicitudes');
+const repositorioDeOrganizaciones = require('./repositorios/repositorioDeOrganizaciones');
 const { administrador } = require('../src/modelos/roles');
 
 app.set('jwtToken', dotEnv.JWT_TOKEN);
@@ -48,6 +49,13 @@ rutasAutenticadas.route('/usuarios')
 
         respuestaDeCreacion(res, 'Usuario creado');
     });
+
+rutasAutenticadas.route('/organizaciones').get(async (req, res) => {
+    const organizaciones = await repositorioDeOrganizaciones.obtenerTodos();
+
+    res.send(organizaciones);
+});
+
 
 rutasAutenticadas.route('/solicitudes')
     .get( async (req, res) => {

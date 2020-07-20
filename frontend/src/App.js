@@ -8,6 +8,7 @@ import Login from './componentes/login';
 import ListadoUsuarios from './componentes/listadoUsuarios';
 import RegistrarUsuario from './componentes/registrarUsuario';
 import ListadoSolicitudes from './componentes/listadoSolicitudes';
+import ListadoOrganizaciones from './componentes/listadoOrganizaciones';
 import AgregarSolicitud from './componentes/agregarSolicitud';
 import RutaAutenticada from './componentes/RutaAutenticada';
 import UsuarioContext from './componentes/UsuarioContext';
@@ -55,6 +56,9 @@ class App extends React.Component {
                              component={ListadoSolicitudes}/>
             <RutaAutenticada exact path="/solicitudes/agregar"
                              component={AgregarSolicitud}/>
+
+            <RutaAutenticada exact path="/organizaciones"
+                             component={ListadoOrganizaciones} soloAdministrador />
 
             <Redirect to="/"/>
           </Switch>
