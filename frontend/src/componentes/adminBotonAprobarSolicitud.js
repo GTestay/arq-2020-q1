@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import backendApi from '../api/backendApi';
 import Modal from 'react-modal';
 import * as PropTypes from 'prop-types';
 import { BotonConIcono } from './botonConIcono';
 import styles from '../estilos/modal.module.scss';
+import Select from 'react-select';
 
 export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
   const [estadoModal, setModalEstado] = React.useState(false);
-  const [proveedor, setProveedor] = React.useState('');
+  const [proveedor, setProveedor] = React.useState(null);
+  const [organizaciones, setOrganizaciones] = React.useState([]);
+
+  useEffect(() => {
+    backendApi.organizaciones().then(({ data }) => setOrganizaciones(data));
+  }, []);
 
   function abrirModal() {
     setModalEstado(true);
@@ -27,7 +33,7 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
   return (
     <React.Fragment>
       <BotonConIcono onClick={abrirModal} texto="Aprobar" icono={'aprobar'}/>
-      
+
       <Modal
         isOpen={estadoModal}
         onRequestClose={setModalEstado}
@@ -38,16 +44,18 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
         <div>
           <h2>Elija un proveedor para {solicitud.email}</h2>
         </div>
-        
-        <div style={{ display: 'flex', padding: '1em 1em 3em 1em' }}>
-          <input required placeholder="Nombre del proveedor..."
-                value={proveedor}
-                onChange={(event) => setProveedor(event.target.value)}
-                style={{ width: '100%' }}/>
+        <div style={{padding: '1em 1em 3em 1em' }}>
+          <Select isDisable={organizaciones.length === 0} required placeholder={'Ingrese un proveedor'}
+                  getOptionValue={option => option}
+                  getOptionLabel={option => option.nombre}
+                  options={organizaciones}
+                  onChange={(event) => setProveedor(event)}
+          />
         </div>
         <div className="flex end">
-          <button className="boton inverted" onClick={cerrarModal}>Cancelar</button>
-          <button className="boton secondary" onClick={aprobar}>Aprobar</button>
+          <button className="boton inverted" onClick={cerrarModal}>Cancelar
+          </button>
+          <button disabled={!proveedor || proveedor.trim() == ''} className="boton secondary" onClick={aprobar}>Aprobar</button>
         </div>
       </Modal>
     </React.Fragment>

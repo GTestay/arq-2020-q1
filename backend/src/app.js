@@ -97,7 +97,7 @@ rutasAutenticadas.route('/solicitudes/:id/aprobar')
         const solicitud = await repositorioSolicitud.aprobar({id, email, proveedor});
 
         if(!!solicitud && solicitud.estado === Solicitud.ESTADOS.APROBADA) {
-          logger.appInfo(`Solicitud de ID ${id} ha sido aprobada por ${email} con el proveedor ${proveedor}`);
+            logger.appInfo(`Solicitud de ID ${id} ha sido aprobada por ${email} con el proveedor ${proveedor}`);
             res.send(solicitud);
         } else {
             respuestaDeError(res, 404, `Solicitud de ID ${id} no se ha podido aprobar`);
