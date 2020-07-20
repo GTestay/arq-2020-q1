@@ -12,7 +12,10 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
   const [organizaciones, setOrganizaciones] = React.useState([]);
 
   useEffect(() => {
-    backendApi.organizaciones().then(({ data }) => setOrganizaciones(data));
+    backendApi.organizaciones()
+      .then(({ data }) => data ?? [])
+      .then((organizaciones) => setOrganizaciones(organizaciones.filter(
+        organizacion => organizacion.insumos.includes(solicitud.insumo))));
   }, []);
 
   function abrirModal() {
@@ -44,8 +47,9 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
         <div>
           <h2>Elija un proveedor para {solicitud.email}</h2>
         </div>
-        <div style={{padding: '1em 1em 3em 1em' }}>
-          <Select isDisable={organizaciones.length === 0} required placeholder={'Ingrese un proveedor'}
+        <div style={{ padding: '1em 1em 3em 1em' }}>
+          <Select isDisable={organizaciones.length === 0} required
+                  placeholder={'Ingrese un proveedor'}
                   getOptionValue={option => option}
                   getOptionLabel={option => option.nombre}
                   options={organizaciones}
@@ -55,7 +59,9 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
         <div className="flex end">
           <button className="boton inverted" onClick={cerrarModal}>Cancelar
           </button>
-          <button disabled={!proveedor} className="boton secondary" onClick={aprobar}>Aprobar</button>
+          <button disabled={!proveedor} className="boton secondary"
+                  onClick={aprobar}>Aprobar
+          </button>
         </div>
       </Modal>
     </React.Fragment>
