@@ -197,6 +197,7 @@ table {
 table, th, td {
   border-collapse: separate;
   border-spacing: 0;
+  height: 2em;
 }
 
 select {
@@ -209,5 +210,34 @@ select {
 
   &:focus {
     outline: none;
+  }
+}
+
+.estado-solicitud {
+  display: inline-flex;
+  align-items: center;
+  border-radius: $border-radius;
+  height: 15px;
+
+  > div {
+    width: 15px;
+    border-radius: 50%;
+    margin-right: .5em;
+
+    &.pendiente {
+      background-color: #dcdc21;
+    }
+
+    &.desaprobada, &.cancelada {
+      background-color: #f15656;
+    }
+
+    &.aprobada {
+      background-color: #53c853;
+    }
+  }
+
+  > span {
+    height: inherit;
   }
 }

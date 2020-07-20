@@ -5,6 +5,7 @@ import Backend from '../api/backendApi';
 import Navbar from './navbar';
 import UsuarioContext from './UsuarioContext';
 import { AccionesDeSolicitudesHandler } from './accionesDeSolicitudesHandler';
+import { EstadoSolicitud } from './estadoSolicitud';
 
 export default class ListadoSolicitudes extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class ListadoSolicitudes extends React.Component {
             {solicitud.area}
           </td>
           <td>
-            {solicitud.estado}
+            <EstadoSolicitud estado={solicitud.estado} />
           </td>
           <td>
             <UsuarioContext.Consumer>
