@@ -13,6 +13,8 @@ class ListadoUsuarios extends React.Component {
 
   pasarASolicitudes = () => this.props.history.push('/solicitudes', {});
 
+  pasarAOrganizaciones = () => this.props.history.push('/organizaciones', {});
+
   pasarARegistrar = () => this.props.history.push('/usuarios/registrar', {});
 
   componentDidMount() {
@@ -61,10 +63,14 @@ class ListadoUsuarios extends React.Component {
             <UsuarioContext.Consumer>
               {context => {
                 return (
-                  context.usuario.esAdministrador() && 
-                  <button className="boton primary"
-                    onClick={this.pasarARegistrar}> Registrar
-                  </button>
+                  context.usuario.esAdministrador() && <React.Fragment>
+                    <button className="boton secondary"
+                            onClick={this.pasarAOrganizaciones}> Organizaciones
+                    </button>
+                    <button className="boton primary"
+                            onClick={this.pasarARegistrar}> Registrar
+                    </button>
+                  </React.Fragment>
                 )
               }}
             </UsuarioContext.Consumer>

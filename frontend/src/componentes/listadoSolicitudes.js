@@ -15,6 +15,8 @@ export default class ListadoSolicitudes extends React.Component {
 
   pasarAUsuarios = () => this.props.history.push('/usuarios', {});
 
+  pasarAOrganizaciones = () => this.props.history.push('/organizaciones', {});
+
   pasarAAgregar = () => this.props.history.push('/solicitudes/agregar', {});
 
   componentDidMount() {
@@ -72,9 +74,15 @@ export default class ListadoSolicitudes extends React.Component {
           <div className="botones">
             <UsuarioContext.Consumer>
               {context =>
-                context.usuario.esAdministrador() ? <button className="boton secondary"
-                                                    onClick={this.pasarAUsuarios}> Usuarios
-                </button> : null}
+                context.usuario.esAdministrador() ?
+                  <React.Fragment>
+                    <button className="boton secondary"
+                            onClick={this.pasarAOrganizaciones}> Organizaciones
+                    </button>
+                    <button className="boton secondary"
+                            onClick={this.pasarAUsuarios}> Solicitudes
+                    </button>
+                  </React.Fragment>: null}
             </UsuarioContext.Consumer>
 
             <button className="boton primary"

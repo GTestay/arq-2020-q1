@@ -21,6 +21,10 @@ export default class Backend {
     return axios.post(`/usuarios`, nuevoUsuario, this._tokenUsuario().headers);
   }
 
+  static organizaciones() {
+    return axios.get('/organizaciones', this._tokenUsuario().headers);
+  }
+
   static solicitudes() {
     return axios.get('/solicitudes', this._tokenUsuario().headers);
   }
