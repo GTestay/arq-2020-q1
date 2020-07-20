@@ -2,6 +2,10 @@
 
 .flex {
   display: flex;
+
+  &.end {
+    justify-content: flex-end;
+  }
 }
 
 .navbar {
@@ -91,7 +95,7 @@
     border: 2px solid $secondary-color;
 
     &:hover {
-      background-color: lighten($secondary-color, 50);
+      background-color: lighten($secondary-color, 70);
     }
   }
 
@@ -130,19 +134,21 @@ form {
       font-size: 1.2rem;
       margin-bottom: 1em;
 
-      input {
-        height: 2em;
-        border: 0.5px solid $primary-color;
-        border-radius: $border-radius;
-        padding: 0.5em 0.7em;
-        margin: 0.3em;
-      }
+      
     }
   }
 
   .boton {
     align-self: flex-end;
   }
+}
+
+input {
+  height: 2em;
+  border: 0.5px solid $primary-color;
+  border-radius: $border-radius;
+  padding: 0.5em 0.7em;
+  margin: 0.3em;
 }
 
 table {
