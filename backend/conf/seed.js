@@ -13,7 +13,15 @@ const seedearDB = async () => {
   const usuarioAdministrador = await repositorioUsuarios.obtenerPorEmail(
     emailAdministrador);
 
-  if(!usuarioAdministrador) {
+  const emailDave = 'dave@insumos.com';
+  const dave = await repositorioUsuarios.obtenerPorEmail(
+    emailDave);
+
+  const emailMartin = 'martin@insumos.com';
+  const martin = await repositorioUsuarios.obtenerPorEmail(
+    emailAdministrador);
+
+  if(!usuarioAdministrador && !dave && !martin) {
     await repositorioUsuarios.agregar({
       nombre: 'Admin',
       email: emailAdministrador,
@@ -21,6 +29,26 @@ const seedearDB = async () => {
       entidad: 'UNQ',
       cargo: 'Estudiante',
       localidad: 'Bernal',
+      rol: administrador,
+    });
+
+    await repositorioUsuarios.agregar({
+      nombre: 'Dave',
+      email: emailDave,
+      telefono: '43211234',
+      entidad: 'UNQ',
+      cargo: 'Estudiante',
+      localidad: 'Hudson',
+      rol: administrador,
+    });
+
+    await repositorioUsuarios.agregar({
+      nombre: 'Martin',
+      email: emailMartin,
+      telefono: '12344321',
+      entidad: 'UNQ',
+      cargo: 'Estudiante',
+      localidad: 'Capital',
       rol: administrador,
     });
 
