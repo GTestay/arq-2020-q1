@@ -3,7 +3,7 @@ const { logger } = require('./logger');
 const repositorioUsuarios = require('../src/repositorios/repositorioUsuarios');
 const repositorioDeOrganizaciones = require(
   '../src/repositorios/repositorioDeOrganizaciones');
-const { administrador } = require('../src/modelos/roles');
+const { administrador, solicitante } = require('../src/modelos/roles');
 const Insumos = require('../src/modelos/insumos');
 
 const seedearDB = async () => {
@@ -27,7 +27,7 @@ const seedearDB = async () => {
       email: emailAdministrador,
       telefono: '1122223333',
       entidad: 'UNQ',
-      cargo: 'Estudiante',
+      cargo: 'Admin de insumos',
       localidad: 'Bernal',
       rol: administrador,
     });
@@ -39,7 +39,7 @@ const seedearDB = async () => {
       entidad: 'UNQ',
       cargo: 'Estudiante',
       localidad: 'Hudson',
-      rol: administrador,
+      rol: solicitante,
     });
 
     await repositorioUsuarios.agregar({
@@ -49,7 +49,7 @@ const seedearDB = async () => {
       entidad: 'UNQ',
       cargo: 'Estudiante',
       localidad: 'Capital',
-      rol: administrador,
+      rol: solicitante,
     });
 
     logger.serverInfo(

@@ -55,7 +55,7 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
         <div className="flex end">
           <button className="boton inverted" onClick={cerrarModal}>Cancelar
           </button>
-          <button disabled={!proveedor || proveedor.trim() == ''} className="boton secondary" onClick={aprobar}>Aprobar</button>
+          <button disabled={!proveedor} className="boton secondary" onClick={aprobar}>Aprobar</button>
         </div>
       </Modal>
     </React.Fragment>
