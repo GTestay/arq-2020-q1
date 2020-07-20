@@ -3,17 +3,7 @@ import backendApi from '../api/backendApi';
 import Modal from 'react-modal';
 import * as PropTypes from 'prop-types';
 import { BotonConIcono } from './botonConIcono';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import styles from '../estilos/modal.module.scss';
 
 export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
   const [estadoModal, setModalEstado] = React.useState(false);
@@ -42,20 +32,22 @@ export function AdminBotonAprobarSolicitud({ solicitud, onUpdate }) {
         isOpen={estadoModal}
         onRequestClose={setModalEstado}
         contentLabel="Aprobar solicitud"
-        style={customStyles}
+        className={styles.modal}
+        overlayClassName={styles.overlay}
       >
-        <h2>Aprobar solicitud de {solicitud.email}</h2>
         <div>
-          <label>
-            Elija un Proveedor
-            <input required placeholder="Nombre del proveedor..."
-                  value={proveedor}
-                  onChange={(event) => setProveedor(event.target.value)}/>
-          </label>
-          <div>
-            <button onClick={aprobar}>Aprobar</button>
-            <button onClick={cerrarModal}>Cancelar</button>
-          </div>
+          <h2>Elija un proveedor para {solicitud.email}</h2>
+        </div>
+        
+        <div style={{ display: 'flex', padding: '1em 1em 3em 1em' }}>
+          <input required placeholder="Nombre del proveedor..."
+                value={proveedor}
+                onChange={(event) => setProveedor(event.target.value)}
+                style={{ width: '100%' }}/>
+        </div>
+        <div className="flex end">
+          <button className="boton inverted" onClick={cerrarModal}>Cancelar</button>
+          <button className="boton secondary" onClick={aprobar}>Aprobar</button>
         </div>
       </Modal>
     </React.Fragment>
