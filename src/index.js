@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.BACKEND_URI || 'http://localhost:4000';
+axios.defaults.baseURL = 'https://arq-2020-q1-grupo1-backend.herokuapp.com/';
 
 const history = createBrowserHistory();
 
