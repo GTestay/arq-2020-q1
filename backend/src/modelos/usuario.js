@@ -1,5 +1,8 @@
+const { administrador, solicitante } = require('../modelos/roles');
+
 class Usuario {
-  constructor({ nombre, email, telefono, entidad, cargo, localidad, rol }) {
+  constructor({_id, nombre, email, telefono, entidad, cargo, localidad, rol }) {
+    this._id = _id;
     this.nombre = nombre;
     this.email = email;
     this.telefono = telefono;
@@ -36,6 +39,14 @@ class Usuario {
 
   _validarFormato(campo, formato, mensajeError) {
     if(!formato.test(campo)) { throw new Error(mensajeError); }
+  }
+
+  esAdministrador() {
+    return this.rol === administrador;
+  };
+
+  esSolicitante() {
+    return this.rol === solicitante;
   }
 }
 

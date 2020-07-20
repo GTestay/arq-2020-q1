@@ -26,7 +26,7 @@ if(process.env.NODE_ENV !== 'test'){
                 if(err) {
                     respuestaDeError(res, 401, 'Ese token es inválido');
                 } else {
-                    req.decoded = decoded;
+                    req.usuarioDeSession = new Usuario(decoded);
                     next();
                 }
             });
@@ -49,19 +49,13 @@ rutasAutenticadas.route('/usuarios')
         respuestaDeCreacion(res, 'Usuario creado');
     });
 
-rutasAutenticadas.route('/usuarios/:email/solicitudes').
-  get(async (req, res) => {
-      const email = req.params.email;
-
-      const solicitudes = await repositorioSolicitud.buscarConEmail(email);
-
-      res.send(solicitudes);
-  });
-
-
 rutasAutenticadas.route('/solicitudes')
     .get( async (req, res) => {
-        const solicitudes = await repositorioSolicitud.obtenerTodos();
+        const usuarioDeSession = req.usuarioDeSession;
+
+        const solicitudes = usuarioDeSession.esAdministrador() ?
+          await repositorioSolicitud.obtenerTodos() :
+          await repositorioSolicitud.buscarConEmail(usuarioDeSession.email);
 
         res.send(solicitudes);
     })
@@ -134,7 +128,7 @@ rutasSinAutenticacion.route('/login')
         const usuario = await repositorioUsuarios.obtenerPorEmail(email);
         if(!!usuario) {
             logger.appInfo(`${email} se ha logueado satisfactoriamente`);
-            res.send({ usuario: usuario, token: jwt.sign(usuario.toString(), dotEnv.JWT_TOKEN) });
+            res.send({ usuario: usuario, token: jwt.sign(JSON.stringify(usuario), dotEnv.JWT_TOKEN) });
         } else {
             respuestaDeError(res, 404, `${email} no se ha logueado satisfactoriamente`);
         }
