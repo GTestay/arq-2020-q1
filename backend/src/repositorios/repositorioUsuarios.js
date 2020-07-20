@@ -16,7 +16,7 @@ const Usuario = mongoose.model('Usuario', usuarioSchema);
 class RepositorioUsuarios {
   constructor() {}
 
-  agregar({ nombre, email, telefono, entidad, cargo, localidad, rol }) {
+  async agregar({ nombre, email, telefono, entidad, cargo, localidad, rol }) {
     return Usuario.create({
       nombre: nombre,
       email: email,
